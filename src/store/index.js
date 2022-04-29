@@ -4,6 +4,7 @@ import Vuex from "vuex";
 Vue.use(Vuex);
 
 import menu from "./menu";
+import dashboard from './dashboard'
 
 export default new Vuex.Store({
     state: {},
@@ -12,5 +13,6 @@ export default new Vuex.Store({
     actions: {},
     modules: {
         menu: menu,
+        dashboard: dashboard
     },
 });

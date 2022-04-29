@@ -1,5 +1,5 @@
 <template>
-    <v-navigation-drawer  v-model="drawer" floating class="sidebar" app>
+    <v-navigation-drawer color="#F8F9FC" v-model="drawer" floating class="sidebar" app>
         <v-row class="text-center">
             <v-col>
                 <v-avatar size="150">
@@ -12,25 +12,25 @@
         <v-row>
             <v-expansion-panels flat>
                 <v-expansion-panel v-for="(section, key) in menu" :key="key">
-                    <v-expansion-panel-header>
+                    <v-expansion-panel-header color="#F8F9FC">
                         <span class="overline font-weight-light">
                             {{ section.name }}
                         </span>
                     </v-expansion-panel-header>
-                    <v-expansion-panel-content class="pl-5 pr-5">
+                    <v-expansion-panel-content color="#F8F9FC" class="pl-5 pr-5">
                         <v-card
                             style="border-radius: 10px"
                             :to="{ name: item.to }"
                             class="mb-2"
                             elevation="0"
-                            color="#82B29A"
+                            :color="'#82B29A'"
                             width="100%"
                             cols="12"
                             v-for="(item, key) in section.items"
                             :key="key"
                         >
                             <v-card-subtitle class="pl-2 pr-2 pt-3 pb-3">
-                                <span class="white--text font-weight-medium">
+                                <span class="white--text font-weight-bold">
                                     {{ item.name }}
                                 </span>
                             </v-card-subtitle>
@@ -53,16 +53,10 @@
     </v-navigation-drawer>
 </template>
 
-<style scoped>
-.sidebar {
-    border-start-end-radius: 20px;
-    border-end-end-radius: 20px;
-}
-</style>
 
 <script>
 
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 
 export default {
     name: "SideBar",
@@ -70,11 +64,24 @@ export default {
         return {
         };
     },
+    methods: {
+        ...mapMutations({
+            setDrawer: 'menu/setDrawer'
+        })
+    },
     computed: {
         ...mapState({
-            drawer: state => state.menu.drawer,
-            menu: state => state.menu.menu
-        })
+            menu: state => state.menu.menu,
+        }),
+        drawer: {
+            set(val){
+                this.setDrawer(val)
+            },
+            get(){
+
+                return this.$store.state.menu.drawer
+            }
+        }
     }
 };
 </script>

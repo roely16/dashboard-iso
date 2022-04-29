@@ -61,8 +61,8 @@ const state = {
 }
 
 const mutations = {
-    setDrawer: (state) => {
-        state.drawer = !state.drawer
+    setDrawer: (state, payload) => {
+        state.drawer = payload
     }
 }
 

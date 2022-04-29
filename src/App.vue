@@ -3,12 +3,18 @@
         <SideBar />
         <AppBar />
         <v-main>
-            <v-container>
+            <v-container class="pl-4 pr-4 home" fluid>
                 <router-view />
             </v-container>
         </v-main>
     </v-app>
 </template>
+
+<style scoped>
+    .home{
+        background-color: #fff;
+    }
+</style>
 
 <script>
 
