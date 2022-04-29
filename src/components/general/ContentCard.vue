@@ -1,54 +1,39 @@
 <template>
     <div>
-        <v-card-text class="mt-4">
+        <v-card-text>
             <v-row align="center">
                 <v-col cols="4">
-                    <chart :data="content.chart"></chart>
+                    <slot name="chart">
+                        <chart :data="content.chart"></chart>
+                    </slot>
                 </v-col>
                 <v-col class="text-center">
-                    <span v-bind:class="[content.style]">
-                        {{ content.value }}
-                    </span>
+                    <slot name="total">
+                        <total :data="content.total"></total>
+                    </slot>
                 </v-col>
             </v-row>
-            <v-row class="pb-2">
-                <v-col class="text-center" cols="3">
-                    <span class="font-weight-medium"> Total </span>
-                    <br />
-                    <span class="text-h5 font-weight-black"> 605 </span>
-                </v-col>
-                <v-divider vertical></v-divider>
-                <v-col class="text-center" cols="3">
-                    <span class="font-weight-medium"> Válidas </span>
-                    <br />
-                    <span class="text-h5 font-weight-black"> 602 </span>
-                </v-col>
-                <v-divider vertical></v-divider>
-                <v-col class="text-center" cols="3">
-                    <span class="font-weight-medium"> SNC </span>
-                    <br />
-                    <span class="text-h5 font-weight-black"> 3 </span>
-                </v-col>
-                <v-divider vertical></v-divider>
-                <v-col class="text-center" cols="3">
-                    <span class="font-weight-medium"> Rechazadas </span>
-                    <br />
-                    <span class="text-h5 font-weight-black"> 0 </span>
-                </v-col>
-            </v-row>
+            <slot name="bottom">
+                <bottom :items="bottom"></bottom>
+            </slot>
         </v-card-text>
     </div>
 </template>
 
 <script>
 import CardChart from "@/components/indicador/CardChart.vue";
+import CardBottomDetail from "@/components/indicador/CardBottomDetail";
+import CardTotal from "@/components/indicador/CardTotal.vue";
 
 export default {
     components: {
         chart: CardChart,
+        bottom: CardBottomDetail,
+        total: CardTotal,
     },
     props: {
-        content: Object
+        content: Object,
+        bottom: Array
     },
     data() {
         return {};

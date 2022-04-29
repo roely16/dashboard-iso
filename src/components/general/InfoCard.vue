@@ -1,8 +1,8 @@
 <template>
     <div>
-        <v-card :dark="dark" class="card" elevation="0" :color="color" min-height="100">
+        <v-card :dark="dark" class="card" elevation="0" :color="color">
             <slot name="title">
-                <card-title :title="title_data.name" :icon="title_data.icon"></card-title>
+                <card-title :dark="dark" :title="title_data.name" :icon="title_data.icon"></card-title>
             </slot>
             <slot name="content"></slot>
         </v-card>
@@ -30,7 +30,7 @@ export default {
     props: {
         title_data: Object,
         color: String,
-        dark: Boolean
+        dark: Boolean,
     },
 };
 </script>

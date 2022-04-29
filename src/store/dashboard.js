@@ -3,17 +3,22 @@ const namespaced = true;
 const state = {
     indicadores: [
         {
+            cols: 6,
+            color: "#FEF4E1",
+            dark: false,
             title: {
                 name: "Calidad",
                 icon: {
                     name: "mdi-thumb-up",
-                    color: "",
-                    container: "",
+                    color: "#FFF",
+                    container: "#81B49A",
                 },
             },
             content: {
-                value: "100%",
-                style: ["text-h1", "font-weight-bold"],
+                total: {
+                    value: "100%",
+                    style: ["text-h1", "font-weight-bold"],
+                },
                 chart: {
                     type: "Pie",
                     chartData: {
@@ -30,9 +35,6 @@ const state = {
                     },
                 },
             },
-            cols: 6,
-            color: "#FEF4E1",
-            dark: false,
             bottom_detail: [
                 {
                     text: "Total",
@@ -53,17 +55,21 @@ const state = {
             ],
         },
         {
+            cols: 6,
+            color: "#FBF3EF",
             title: {
                 name: "Eficacia",
                 icon: {
                     name: "mdi-book-clock",
-                    color: "",
-                    container: "",
+                    color: "#FFF",
+                    container: "#3E425D",
                 },
             },
             content: {
-                value: "90%",
-                style: ["text-h1", "font-weight-bold"],
+                total: {
+                    value: "90%",
+                    style: ["text-h1", "font-weight-bold"],
+                },
                 chart: {
                     type: "Bar",
                     chartData: {
@@ -97,10 +103,28 @@ const state = {
                     },
                 },
             },
-            cols: 6,
-            color: "#FBF3EF",
+            bottom_detail: [
+                {
+                    text: "Anteriores",
+                    value: 605,
+                },
+                {
+                    text: "Ingresados",
+                    value: 602,
+                },
+                {
+                    text: "Resueltos",
+                    value: 3,
+                },
+                {
+                    text: "Pendientes",
+                    value: 0,
+                },
+            ],
         },
         {
+            cols: 4,
+            color: "#80e89b",
             title: {
                 name: "Satisfacción",
                 icon: {
@@ -110,8 +134,10 @@ const state = {
                 },
             },
             content: {
-                value: "50%",
-                style: ["text-h2", "font-weight-bold"],
+                total: {
+                    value: "50%",
+                    style: ["text-h2", "font-weight-bold"],
+                },
                 chart: {
                     type: "Doughnut",
                     chartData: {
@@ -139,8 +165,6 @@ const state = {
                     },
                 },
             },
-            cols: 4,
-            color: "#FAFAFA",
         },
         {
             title: {
@@ -152,8 +176,10 @@ const state = {
                 },
             },
             content: {
-                value: "50%",
-                style: ["text-h2", "font-weight-bold"],
+                total: {
+                    value: "50%",
+                    style: ["text-h2", "font-weight-bold"],
+                },
                 chart: {
                     type: "Pie",
                     chartData: {
@@ -194,8 +220,10 @@ const state = {
                 },
             },
             content: {
-                value: "50%",
-                style: ["text-h2", "font-weight-bold"],
+                total: {
+                    value: "50%",
+                    style: ["text-h2", "font-weight-bold"],
+                },
                 chart: {
                     type: "Pie",
                     chartData: {
@@ -224,7 +252,8 @@ const state = {
                 },
             },
             cols: 4,
-            color: "#FAFAFA",
+            color: "#d95757",
+            dark: true
         },
     ],
 };

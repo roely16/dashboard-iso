@@ -5,10 +5,29 @@
                 <slot name="title">
                     <h2>
                         <slot name="icon">
-                            <v-chip class="mr-2" color="#81B49A" label>
-                                <v-icon :size="icon_size" color="#fff">
-                                    {{ icon.name }}
-                                </v-icon>
+                            <v-chip
+                                class="mr-2"
+                                :color="
+                                    icon.container
+                                        ? icon.container
+                                        : '#66000000'
+                                "
+                                style="height: 40px; border-radius: 10px"
+                            >
+                                <template v-slot:default>
+                                    <v-icon
+                                        :size="icon_size"
+                                        :color="
+                                            icon.color
+                                                ? icon.color
+                                                : dark
+                                                ? '#fff'
+                                                : '#000'
+                                        "
+                                    >
+                                        {{ icon.name }}
+                                    </v-icon>
+                                </template>
                             </v-chip>
                         </slot>
                         {{ title }}
@@ -29,25 +48,30 @@
 <script>
 export default {
     props: {
-        color: String,
+        dark: Boolean,
         title: String,
-        icon: Object,
+        icon: {
+            type: Object,
+            default() {
+                return {
+                    color: "#fff",
+                    container: "#66000000",
+                    size: 24,
+                };
+            },
+        },
         cols: Number,
     },
-    computed:{
-        icon_size: function(){
-
+    computed: {
+        icon_size: function () {
             if (this.cols < 6) {
-                
-                let result = 24 - (24 * (this.cols / 12))
-            
-                return result
+                let result = 24 - 24 * (this.cols / 12);
 
+                return result;
             }
 
-            return 24
-            
-        }
-    }
+            return 24;
+        },
+    },
 };
 </script>

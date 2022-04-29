@@ -8,7 +8,7 @@
             </template>
         </v-app-bar-nav-icon>
         <v-toolbar-title>
-            <h2>Dirección de Catastro y Administración del IUSI</h2>
+            <h2>Dashboard de Indicadores ISO</h2>
         </v-toolbar-title>
         <v-spacer></v-spacer>
         <v-btn text>

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <component :type="1" v-bind="data" v-bind:is="currentChart"></component>
+        <component v-bind="data" v-bind:is="currentChart"></component>
     </div>
 </template>
 
@@ -12,8 +12,6 @@ export default {
     },
     computed: {
         currentChart: function(){
-
-            console.log(this.data)
 
             const chartName = this.data.type + 'Chart'
 
