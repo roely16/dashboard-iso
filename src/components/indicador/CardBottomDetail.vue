@@ -4,8 +4,9 @@
             <v-col
                 v-for="(item, key) in items"
                 :key="key"
-                class="text-center"
+                class="text-center click"
                 cols="3"
+                @click="setDetail(item.detail)"
             >
                 <v-row>
                     <v-col>
@@ -27,7 +28,16 @@
     </div>
 </template>
 
+<style scoped>
+.click{
+    cursor: pointer;
+}
+</style>
+
 <script>
+
+import { mapMutations } from 'vuex'
+
 export default {
     props: {
         items: {
@@ -37,5 +47,16 @@ export default {
             },
         },
     },
+    methods: {
+        ...mapMutations({
+            setShow: 'dialog/setShow',
+            setData: 'dialog/setData'
+        }),
+        setDetail(detail){
+            this.setData(detail)
+
+            this.setShow(true)
+        }
+    }
 };
 </script>

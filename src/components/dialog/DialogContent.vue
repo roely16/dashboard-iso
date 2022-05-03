@@ -1,8 +1,8 @@
 <template>
     <v-card-text>
         <v-data-table
-            :headers="headers"
-            :items="desserts"
+            :headers="data.table.headers"
+            :items="data.table.items"
             :items-per-page="5"
             class="elevation-0 mytable"
             hide-default-footer
@@ -11,6 +11,9 @@
 </template>
 
 <script>
+
+import { mapState } from 'vuex'
+
 export default {
     data() {
         return {
@@ -111,5 +114,10 @@ export default {
             ],
         };
     },
+    computed: {
+        ...mapState({
+            data: state => state.dialog.data
+        })
+    }
 };
 </script>

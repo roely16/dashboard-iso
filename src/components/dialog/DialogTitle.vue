@@ -1,6 +1,6 @@
 <template>
     <v-card-title class="text-h5">
-        {{ title }}
+        {{ data.title }}
         <v-spacer></v-spacer>
         <v-btn @click="setFullScreen()" icon>
             <v-icon>
@@ -18,9 +18,6 @@
 import { mapMutations, mapState } from 'vuex'
 
 export default {
-    props: {
-        title: String
-    },
     methods: {
         ...mapMutations({
             setFullScreen: 'dialog/setFullScreen',
@@ -29,7 +26,8 @@ export default {
     },
     computed: {
         ...mapState({
-            fullscreen: state => state.dialog.fullscreen
+            fullscreen: state => state.dialog.fullscreen,
+            data: state => state.dialog.data
         })
     }
 };

@@ -2,7 +2,8 @@ const namespaced = true
 
 const state = {
     show: false,
-    fullscreen: false
+    fullscreen: false,
+    data: null
 }
 
 const mutations = {
@@ -11,6 +12,22 @@ const mutations = {
     },
     setFullScreen: (state) => {
         state.fullscreen = !state.fullscreen
+    },
+    setData: (state, payload) => {
+
+        if (!payload) {
+            state.data = {
+                table: {
+                    items: [],
+                    headers: []
+                },
+                title: null
+            }
+
+            return 
+        }
+
+        state.data = payload
     }
 }
 
