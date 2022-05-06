@@ -1,6 +1,9 @@
+import axios from 'axios'
+
 const namespaced = true;
 
 const state = {
+    header: null,
     indicadores: [
         {
             cols: 6,
@@ -356,11 +359,38 @@ const state = {
             dark: true,
         },
     ],
+    fecha: null,
+    loading: false
 };
 
-const mutations = {};
+const mutations = {
+    setHeader: (state, payload) => {
+        state.header = payload
+    },
+    setFecha: (state, payload) => {
+        state.fecha = payload
+    },
+    setLoading: (state, payload) => {
+        state.loading = payload
+    }
+};
 
-const actions = {};
+const actions = {
+    async getDashboard({commit, rootState}){
+
+        commit('setLoading', true)
+
+        const data = {
+            id_proceso: rootState.menu.option_selected
+        }
+
+        const response = await axios.post(process.env.VUE_APP_API_URL + 'get_dashboard', data)
+
+        commit('setHeader', response.data.title)
+
+        commit('setLoading', false)
+    }   
+};
 
 export default {
     namespaced,

@@ -14,24 +14,24 @@
                 <v-expansion-panel v-for="(section, key) in menu" :key="key">
                     <v-expansion-panel-header color="#F8F9FC">
                         <span class="overline font-weight-light">
-                            {{ section.name }}
+                            {{ section.nombre }}
                         </span>
                     </v-expansion-panel-header>
                     <v-expansion-panel-content color="#F8F9FC" class="pl-5 pr-5">
                         <v-card
                             style="border-radius: 10px"
-                            :to="{ name: item.to }"
                             class="mb-2"
                             elevation="0"
-                            :color="'#82B29A'"
+                            :color="item.selected ? '#82B29A' : null"
                             width="100%"
                             cols="12"
-                            v-for="(item, key) in section.items"
+                            v-for="(item, key) in section.procesos"
                             :key="key"
+                            @click="selectMenu(item)"
                         >
                             <v-card-subtitle class="pl-2 pr-2 pt-3 pb-3">
-                                <span class="white--text font-weight-bold">
-                                    {{ item.name }}
+                                <span v-bind:class="[{'white--text': item.selected}, 'font-weight-bold']">
+                                    {{ item.nombre }}
                                 </span>
                             </v-card-subtitle>
                         </v-card>
@@ -53,10 +53,14 @@
     </v-navigation-drawer>
 </template>
 
+<style scoped>
+    .selected{
+    }
+</style>
 
 <script>
 
-import { mapState, mapMutations } from 'vuex'
+import { mapState, mapMutations, mapActions } from 'vuex'
 
 export default {
     name: "SideBar",
@@ -67,6 +71,10 @@ export default {
     methods: {
         ...mapMutations({
             setDrawer: 'menu/setDrawer'
+        }),
+        ...mapActions({
+            getMenu: 'menu/getMenu',
+            selectMenu: 'menu/selectMenu'
         })
     },
     computed: {
@@ -82,6 +90,11 @@ export default {
                 return this.$store.state.menu.drawer
             }
         }
+    },
+    mounted(){
+
+        this.getMenu()
+
     }
 };
 </script>
