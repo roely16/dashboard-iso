@@ -80,7 +80,25 @@ const mutations = {
 
         state.option_selected = payload.id
 
-        payload.selected = true
+        state.menu.forEach(category => {
+
+            const result = category.procesos.filter(proceso => proceso.id == payload.id)
+
+            if (result.length > 0) {
+                
+                result[0].selected = true
+
+            }
+
+        })
+
+    },
+    clearMenu: (state) => {
+        state.menu.forEach(category => {
+            category.procesos.forEach(proceso => {
+                proceso.selected = false
+            });
+         });
     }
 }
 
@@ -91,10 +109,20 @@ const actions = {
 
         commit('setMenu', response.data)
 
+        const option_selected = JSON.parse(localStorage.getItem('dashboard-iso-option-selected'))
+
+        if (option_selected) {
+            
+            commit('selectOption', {id: option_selected})
+
+        }
+
     },
     async selectMenu({commit, dispatch}, payload){
 
         commit('selectOption', payload)
+
+        localStorage.setItem('dashboard-iso-option-selected', payload.id)
 
         dispatch('dashboard/getDashboard', null, {root: true})
         

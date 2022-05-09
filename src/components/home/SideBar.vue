@@ -2,7 +2,7 @@
     <v-navigation-drawer color="#F8F9FC" v-model="drawer" floating class="sidebar" app>
         <v-row class="text-center">
             <v-col>
-                <v-avatar size="150">
+                <v-avatar @click="goHome()" style="cursor: pointer;" size="150">
                     <v-img contain :src="require('@/assets/img/DCAI_ISO.png')">
                     </v-img>
                 </v-avatar>
@@ -64,17 +64,14 @@ import { mapState, mapMutations, mapActions } from 'vuex'
 
 export default {
     name: "SideBar",
-    data() {
-        return {
-        };
-    },
     methods: {
         ...mapMutations({
             setDrawer: 'menu/setDrawer'
         }),
         ...mapActions({
             getMenu: 'menu/getMenu',
-            selectMenu: 'menu/selectMenu'
+            selectMenu: 'menu/selectMenu',
+            goHome: 'dashboard/goHome'
         })
     },
     computed: {

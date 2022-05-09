@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-row v-if="!loading && header" align="center">
+        <v-row v-if="header" align="center">
             <v-col cols="auto">
                 <v-avatar class="mr-4" size="80">
                     <v-img :src="avatar_url"> </v-img>
@@ -19,25 +19,21 @@
 </template>
 
 <script>
-
-import { mapState } from 'vuex'
+import { mapState } from "vuex";
 
 export default {
     computed: {
         ...mapState({
-            header: state => state.dashboard.header,
-            loading: state => state.dashboard.loading
+            header: (state) => state.dashboard.header,
+            loading: (state) => state.dashboard.loading,
         }),
-        avatar_url: function(){
-
+        avatar_url: function () {
             if (this.header.jefe) {
-                
-                return process.env.VUE_APP_AVATAR_URL + this.header.jefe.avatar
+                return process.env.VUE_APP_AVATAR_URL + this.header.jefe.avatar;
             }
 
-            return null
-            
-        }
-    }
+            return null;
+        },
+    },
 };
 </script>

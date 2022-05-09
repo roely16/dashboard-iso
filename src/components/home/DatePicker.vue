@@ -7,13 +7,13 @@
         <v-card-text>
             <v-row align="center">
                 <v-col cols="3" class="text-center">
-                    <v-btn x-large dark icon>
-                        <v-icon> mdi-calendar</v-icon>
-                    </v-btn>
+                    <dialog-date-picker></dialog-date-picker>
                 </v-col>
                 <v-col>
                     <span class="overline white--text">Fecha: </span>
-                    <h2 class="white--text">04/2022</h2>
+                    <h2 class="white--text">
+                        {{ date }}
+                    </h2>
                 </v-col>
                 <v-col>
                     <span class="overline white--text">Hora: </span>
@@ -25,12 +25,24 @@
 </template>
 
 <script>
+import DialogDatePickerVue from './DialogDatePicker.vue'
+
+import { mapState } from 'vuex'
+
 export default {
+    components: {
+        'dialog-date-picker': DialogDatePickerVue
+    },
     data() {
         return {
             interval: null,
-            time: null,
+            time: '00:00:00',
         };
+    },
+    computed: {
+        ...mapState({
+            date: state => state.dashboard.date
+        })
     },
     created() {
         this.interval = setInterval(() => {

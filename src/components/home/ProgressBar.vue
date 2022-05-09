@@ -13,7 +13,7 @@ import { mapState } from 'vuex'
 export default {
     computed: {
         ...mapState({
-            loading: state => state.dashboard.loading
+            loading: state => state.dashboard.loading,
         })
     }
 }
