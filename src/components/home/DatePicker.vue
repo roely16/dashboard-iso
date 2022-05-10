@@ -9,20 +9,28 @@
                 <v-col cols="3" class="text-center">
                     <dialog-date-picker></dialog-date-picker>
                 </v-col>
-                <v-col>
-                    <span class="overline white--text">Fecha: </span>
-                    <h2 class="white--text">
+                <v-col class="date-title">
+                    <span class="white--text">Fecha: </span>
+                    <br>
+                    <span class="white--text font-weight-bold">
                         {{ date }}
-                    </h2>
+                    </span>
                 </v-col>
-                <v-col>
-                    <span class="overline white--text">Hora: </span>
-                    <h2 class="white--text">{{ time }}</h2>
+                <v-col class="date-title">
+                    <span class="white--text">Hora: </span>
+                    <br>
+                    <span class="white--text font-weight-bold">{{ time }}</span>
                 </v-col>
             </v-row>
         </v-card-text>
     </v-card>
 </template>
+
+<style scoped>
+    .date-title{
+        font-size: 1vw;
+    }
+</style>
 
 <script>
 import DialogDatePickerVue from './DialogDatePicker.vue'

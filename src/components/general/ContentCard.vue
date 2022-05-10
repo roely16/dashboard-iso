@@ -1,18 +1,20 @@
 <template>
     <div>
         <v-card-text>
-            <v-row align="center">
-                <v-col cols="4">
-                    <slot name="chart">
-                        <chart :data="content.chart"></chart>
-                    </slot>
-                </v-col>
-                <v-col class="text-center">
-                    <slot name="total">
-                        <total :data="content.total"></total>
-                    </slot>
-                </v-col>
-            </v-row>
+            <slot name="content">
+                <v-row align="center">
+                    <v-col cols="3">
+                        <slot name="chart">
+                            <chart :data="content.chart"></chart>
+                        </slot>
+                    </v-col>
+                    <v-col cols="9" class="text-center" :style="total_styles">
+                        <slot name="total">
+                            <total :data="content.total"></total>
+                        </slot>
+                    </v-col>
+                </v-row>
+            </slot>
             <slot name="bottom">
                 <bottom :items="bottom"></bottom>
             </slot>
@@ -32,11 +34,31 @@ export default {
         total: CardTotal,
     },
     props: {
-        content: Object,
-        bottom: Array
+        content: {
+            type: Object,
+            default: function(){
+                return {}
+            }
+        },
+        bottom: Array,
+        data: {
+            type: Object,
+            default: function(){
+                return {}
+            }
+        }
     },
-    data() {
-        return {};
-    },
+    computed:{
+        total_styles(){
+
+            const size = 9
+
+            const font_size = Math.floor((this.data.cols * size) / 6)
+
+            return{
+                'font-size': font_size + 'vw'
+            }
+        }
+    }
 };
 </script>

@@ -1,5 +1,5 @@
 <template>
-    <span v-bind:class="[data.style]">
+    <span>
         {{ data.value }}
     </span>
 </template>
@@ -7,7 +7,19 @@
 <script>
 export default {
     props: {
-        data: Object
+        data: {
+            type: Object,
+            default: function(){
+                return {}
+            }
+        }
+    },
+    computed:{
+        styles(){
+            return{
+                'font-size': '10vw'
+            }
+        }
     }
 };
 </script>

@@ -1,24 +1,25 @@
 <template>
-    <div>
-        <component v-bind="data" v-bind:is="currentChart"></component>
-    </div>
+    <component v-bind="data" v-bind:is="customComponent"></component>
 </template>
 
 <script>
-
 export default {
     props: {
-        data: Object
+        name: String,
+        data: {
+            type: Object,
+            default: function(){
+                return {}
+            }
+        }
     },
     computed: {
-        currentChart: function(){
+        customComponent: function(){
 
-            if(this.data){
+            if(this.name){
                 
-                 const chartName = this.data.type + 'Chart'
-
                 const AsyncComponent = () => ({
-                    component: import("@/components/charts/" + chartName),
+                    component: import("@/components/" + this.name),
                     props: {
                         type: 1
                     }
@@ -31,5 +32,5 @@ export default {
 
         }
     }
-};
+}
 </script>

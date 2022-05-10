@@ -1,5 +1,8 @@
 <template>
     <div>
+        <v-overlay color="#fff" :dark="false" :opacity="100" :value="first_loading">
+            <v-progress-circular indeterminate size="64"></v-progress-circular>
+        </v-overlay>
         <v-row>
             <v-col>
                 <section-bar></section-bar>
@@ -20,9 +23,12 @@
                     :cols="indicador.cols"
                 >
                     <template #content>
+                        <custom-component :name="indicador.componente" v-if="indicador.componente"></custom-component>
                         <content-card
+                            else
                             :bottom="indicador.bottom_detail"
                             :content="indicador.content"
+                            :data="indicador"
                         ></content-card>
                     </template>
                 </info-card>
@@ -35,30 +41,44 @@
 import InfoCard from "@/components/general/InfoCard.vue";
 import ContentCard from "@/components/general/ContentCard.vue";
 import SectionBar from "@/components/home/SectionBar.vue";
-import ProgressBar from '@/components/home/ProgressBar.vue'
+import ProgressBar from "@/components/home/ProgressBar.vue";
+import CustomComponent from '@/components/custom/CustomComponent.vue'
 
-import { mapState, mapActions } from "vuex";
+import { mapState, mapActions, mapMutations } from "vuex";
 
 export default {
-    name: 'HomeView',
+    name: "HomeView",
     components: {
         "info-card": InfoCard,
         "content-card": ContentCard,
         "section-bar": SectionBar,
-        'progress-bar': ProgressBar
+        "progress-bar": ProgressBar,
+        'custom-component': CustomComponent
+    },
+    data(){
+        return{
+            overlay: true
+        }
     },
     methods: {
         ...mapActions({
-            getDashboard: 'dashboard/getDashboard'
+            getDashboard: "dashboard/getDashboard",
+        }),
+        ...mapMutations({
+            setFirstLoading: 'dashboard/setFirstLoading'
         })
     },
     computed: {
         ...mapState({
             indicadores: (state) => state.dashboard.indicadores,
-        }),
+            first_loading: state => state.dashboard.first_loading
+        })
     },
-    mounted(){
-        this.getDashboard()
-    }
+    mounted() {
+
+        this.setFirstLoading(true)
+        
+        this.getDashboard();
+    },
 };
 </script>

@@ -4,17 +4,18 @@
             <v-col
                 v-for="(item, key) in items"
                 :key="key"
-                class="text-center click"
+                class="text-center click mt-2 mb-2"
                 cols="3"
                 @click="setDetail(item.detail)"
             >
                 <v-row>
-                    <v-col>
-                        <span class="font-weight-medium">
+                    <v-col cols="12 pb-0 pt-0 title-bottom">
+                        <span class="font-weight-medium ">
                             {{ item.text }}
                         </span>
-                        <br />
-                        <span class="text-h5 font-weight-black">
+                    </v-col>
+                    <v-col cols="12 pt-0 pb-0 total-bottom mt-2">
+                        <span class="font-weight-black ">
                             {{ item.value }}
                         </span>
                     </v-col>
@@ -31,6 +32,12 @@
 <style scoped>
 .click{
     cursor: pointer;
+}
+.title-bottom{
+    font-size: 0.70vw;
+}
+.total-bottom{
+    font-size: 2vw;
 }
 </style>
 

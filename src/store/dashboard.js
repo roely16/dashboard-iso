@@ -363,7 +363,8 @@ const state = {
     ],
     */
     date: new Date().toISOString().substr(0, 7),
-    loading: false
+    loading: false,
+    first_loading: false
 };
 
 const mutations = {
@@ -378,6 +379,9 @@ const mutations = {
     },
     setIndicadores: (state, payload) => {
         state.indicadores = payload
+    },
+    setFirstLoading: (state, payload) => {
+        state.first_loading = payload
     }
 };
 
@@ -400,6 +404,7 @@ const actions = {
         commit('setIndicadores', response.data.indicadores)
 
         commit('setLoading', false)
+        commit('setFirstLoading', false)
     },   
     async goHome({dispatch, commit}){
 

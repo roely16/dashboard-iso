@@ -6,6 +6,7 @@
                     <h2>
                         <slot name="icon">
                             <v-chip
+                                v-if="icon.name"
                                 class="mr-2"
                                 :color="
                                     icon.container
