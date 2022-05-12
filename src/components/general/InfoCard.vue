@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-card :dark="dark" class="card" elevation="0" :color="color">
+        <v-card min-height="300" :dark="dark" class="card" elevation="0" :color="color">
             <slot name="title">
                 <card-title :dark="dark" :title="title_data.name" :icon="title_data.icon"></card-title>
             </slot>
@@ -31,6 +31,6 @@ export default {
         title_data: Object,
         color: String,
         dark: Boolean,
-    },
+    }
 };
 </script>

@@ -16,6 +16,11 @@
                 mdi-magnify
             </v-icon>
         </v-btn>
+        <v-btn @click="getDashboard()" text>
+            <v-icon>
+                mdi-sync
+            </v-icon>
+        </v-btn>
         <v-btn text>
             <v-icon>
                 mdi-bell
@@ -26,13 +31,16 @@
 
 <script>
 
-import { mapMutations, mapState } from 'vuex'
+import { mapMutations, mapState, mapActions } from 'vuex'
 
 export default {
     name: "AppBar",
     methods: {
         ...mapMutations({
             setDrawer: 'menu/setDrawer'
+        }),
+        ...mapActions({
+            getDashboard: 'dashboard/getDashboard'
         })
     },
     computed: {

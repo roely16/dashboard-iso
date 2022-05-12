@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from "axios";
 
 const namespaced = true;
 
@@ -364,56 +364,68 @@ const state = {
     */
     date: new Date().toISOString().substr(0, 7),
     loading: false,
-    first_loading: false
+    first_loading: false,
 };
 
 const mutations = {
     setHeader: (state, payload) => {
-        state.header = payload
+        state.header = payload;
     },
     setDate: (state, payload) => {
-        state.date = payload
+        state.date = payload;
     },
     setLoading: (state, payload) => {
-        state.loading = payload
+        state.loading = payload;
     },
     setIndicadores: (state, payload) => {
-        state.indicadores = payload
+        state.indicadores = payload;
     },
     setFirstLoading: (state, payload) => {
-        state.first_loading = payload
-    }
+        state.first_loading = payload;
+    },
 };
 
 const actions = {
-    async getDashboard({commit, state}){
+    async getDashboard({ commit, state }) {
 
-        commit('setLoading', true)
+        try {
 
-        const option_selected = JSON.parse(localStorage.getItem('dashboard-iso-option-selected'))
+            commit("setLoading", true);
 
-        const data = {
-            id_proceso: option_selected,
-            date: state.date
+            const option_selected = JSON.parse(
+                localStorage.getItem("dashboard-iso-option-selected")
+            );
+
+            const data = {
+                id_proceso: option_selected,
+                date: state.date,
+            };
+
+            const response = await axios.post(
+                process.env.VUE_APP_API_URL + "get_dashboard",
+                data
+            );
+
+            commit("setHeader", response.data.title);
+
+            commit("setIndicadores", response.data.indicadores);
+
+            commit("setLoading", false);
+            commit("setFirstLoading", false);
+
+        } catch (error) {
+
+            commit('setLoading', false)
+            commit("setFirstLoading", false);
+
         }
+    },
+    async goHome({ dispatch, commit }) {
+        localStorage.removeItem("dashboard-iso-option-selected");
+        commit("menu/clearMenu", null, { root: true });
 
-        const response = await axios.post(process.env.VUE_APP_API_URL + 'get_dashboard', data)
-
-        commit('setHeader', response.data.title)
-
-        commit('setIndicadores', response.data.indicadores)
-
-        commit('setLoading', false)
-        commit('setFirstLoading', false)
-    },   
-    async goHome({dispatch, commit}){
-
-        localStorage.removeItem('dashboard-iso-option-selected')
-        commit('menu/clearMenu', null, {root: true})
-
-        dispatch('getDashboard')
-
-    }
+        dispatch("getDashboard");
+    },
 };
 
 export default {

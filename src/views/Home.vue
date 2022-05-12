@@ -23,6 +23,9 @@
                     :cols="indicador.cols"
                 >
                     <template #content>
+                        <div v-if="indicador.error">
+                            <error-message :message="indicador.error.message"></error-message>
+                        </div>
                         <custom-component :name="indicador.componente" v-if="indicador.componente"></custom-component>
                         <content-card
                             else
@@ -43,6 +46,7 @@ import ContentCard from "@/components/general/ContentCard.vue";
 import SectionBar from "@/components/home/SectionBar.vue";
 import ProgressBar from "@/components/home/ProgressBar.vue";
 import CustomComponent from '@/components/custom/CustomComponent.vue'
+import ErrorMessage from '@/components/indicador/ErrorMessage.vue'
 
 import { mapState, mapActions, mapMutations } from "vuex";
 
@@ -53,7 +57,8 @@ export default {
         "content-card": ContentCard,
         "section-bar": SectionBar,
         "progress-bar": ProgressBar,
-        'custom-component': CustomComponent
+        'custom-component': CustomComponent,
+        'error-message': ErrorMessage
     },
     data(){
         return{
