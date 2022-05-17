@@ -1,14 +1,12 @@
 <template>
-    <v-card-text>
         <v-data-table
-            :headers="data.table.headers"
-            :items="data.table.items"
+            :headers="headers"
+            :items="items"
             :items-per-page="10"
             class="elevation-0"
             :search="search"
-            :hide-default-footer="data.table.items.length == 0 ? true : false"
+            :hide-default-footer="items.length == 0 ? true : false"
         ></v-data-table>
-    </v-card-text>
 </template>
 
 <script>
@@ -16,6 +14,10 @@
 import { mapState } from 'vuex'
 
 export default {
+    props:{
+        items: Array,
+        headers: Array
+    },
     computed: {
         ...mapState({
             data: state => state.dialog.data,

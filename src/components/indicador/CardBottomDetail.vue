@@ -5,7 +5,6 @@
                 v-for="(item, key) in items"
                 :key="key"
                 class="text-center click mt-2 mb-2"
-                cols="3"
                 @click="setDetail(item.detail)"
             >
                 <v-row>
@@ -60,6 +59,7 @@ export default {
             setData: 'dialog/setData'
         }),
         setDetail(detail){
+            
             this.setData(detail)
 
             this.setShow(true)

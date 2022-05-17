@@ -7,9 +7,9 @@
                 </v-avatar>
                 <v-card elevation="0">
                     <v-card-text>
-                        <span class="overline">
+                        <small>
                             {{ message }}
-                        </span>
+                        </small>
                     </v-card-text>
                 </v-card>
             </v-col>

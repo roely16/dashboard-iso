@@ -1,68 +1,70 @@
 <template>
-    <v-dialog @keydown.esc="setShow(false)" @click:outside="setShow(false)" scrollable :fullscreen="fullscreen" style="border-radius: 15px" v-model="show" width="800">
+    <v-dialog
+        @keydown.esc="setShow(false)"
+        @click:outside="setShow(false)"
+        scrollable
+        :fullscreen="fullscreen"
+        style="border-radius: 15px"
+        v-model="show"
+        width="800"
+    >
         <v-card style="border-radius: 15px">
-            
-            <dialog-title :title="data.title"></dialog-title>
+            <dialog-title :title="'Detalle'"></dialog-title>
 
-            
-            <dialog-content></dialog-content>
-
-            <v-card-actions v-if="footer" class="grey lighten-3 pt-4 pb-4">
-                <v-spacer></v-spacer>
-                <v-btn class="btn" text>
-                    Cancelar
-                </v-btn>
-                <v-btn class="btn" color="primary" elevation="0" @click="setShow(false)">
-                    Save Changes
-                </v-btn>
-            </v-card-actions>
+            <v-card-text>
+                <v-expansion-panels flat v-if="isArray">
+                    <v-expansion-panel v-for="(item, key) in data" :key="key">
+                        <v-expansion-panel-header>
+                            {{ item.descripcion }}
+                        </v-expansion-panel-header>
+                        <v-expansion-panel-content>
+                            <!-- {{ item.bottom_detail }} -->
+                            <dialog-content
+                                :items="item.bottom_detail.table.items"
+                                :headers="item.bottom_detail.table.headers"
+                            ></dialog-content>
+                        </v-expansion-panel-content>
+                    </v-expansion-panel>
+                </v-expansion-panels>
+            </v-card-text>
+            <v-card-text v-if="!isArray">
+                <dialog-content :items="data.table.items" :headers="data.table.headers" ></dialog-content>
+            </v-card-text>
         </v-card>
     </v-dialog>
 </template>
 
 <style scoped>
-    .btn {
-        text-transform: unset !important;
-    }
+.btn {
+    text-transform: unset !important;
+}
 </style>
 
 <script>
+import { mapState, mapMutations } from "vuex";
 
-import { mapState, mapMutations } from 'vuex'
-
-import DialogTitle from '@/components/dialog/DialogTitle.vue'
-import DialogContent from '@/components/dialog/DialogContent.vue'
+import DialogTitle from "@/components/dialog/DialogTitle.vue";
+import DialogContent from "@/components/dialog/DialogContent.vue";
 
 export default {
-    props: {
-        footer: {
-            type: Boolean,
-            default: false
-        },
-        data: {
-            type: Object,
-            default: function(){
-                return {
-                    table: {},
-                    title: 'Detalle'
-                }
-            }
-        }
-    },
     components: {
-        'dialog-title': DialogTitle,
-        'dialog-content': DialogContent
+        "dialog-title": DialogTitle,
+        "dialog-content": DialogContent,
     },
     methods: {
         ...mapMutations({
-            setShow: 'dialog/setShow'
-        })
+            setShow: "dialog/setShow",
+        }),
     },
-    computed:{
+    computed: {
         ...mapState({
-            show: state => state.dialog.show,
-            fullscreen: state => state.dialog.fullscreen
-        })
-    }
+            show: (state) => state.dialog.show,
+            fullscreen: (state) => state.dialog.fullscreen,
+            data: (state) => state.dialog.data,
+        }),
+        isArray() {
+            return Array.isArray(this.data);
+        },
+    },
 };
 </script>
