@@ -3,7 +3,8 @@ const namespaced = true
 const state = {
     show: false,
     fullscreen: false,
-    data: null,
+    data: {
+    },
     search: null,
     showSearch: false
 }

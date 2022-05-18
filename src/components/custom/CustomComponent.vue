@@ -19,10 +19,7 @@ export default {
             if(this.name){
                 
                 const AsyncComponent = () => ({
-                    component: import("@/components/" + this.name),
-                    props: {
-                        type: 1
-                    }
+                    component: import("@/components/" + this.name)
                 })
 
                 return AsyncComponent

@@ -42,7 +42,7 @@
 
         <template v-slot:append>
             <div class="text-center pb-5">
-                <v-btn large text>
+                <v-btn @click="showConfig()" large text>
                     <v-icon> mdi-cog </v-icon>
                 </v-btn>
                 <v-btn large text>
@@ -66,13 +66,27 @@ export default {
     name: "SideBar",
     methods: {
         ...mapMutations({
-            setDrawer: 'menu/setDrawer'
+            setDrawer: 'menu/setDrawer',
+            setShow: 'dialog/setShow',
+            setData: 'dialog/setData',
+            setFullScreen: 'dialog/setFullScreen'
         }),
         ...mapActions({
             getMenu: 'menu/getMenu',
             selectMenu: 'menu/selectMenu',
             goHome: 'dashboard/goHome'
-        })
+        }),
+        showConfig(){
+
+            const data = {
+                component: 'config/Config'
+            }
+
+            this.setData(data)
+            this.setFullScreen(true)
+
+            this.setShow(true)
+        }
     },
     computed: {
         ...mapState({

@@ -2,14 +2,14 @@
     <v-dialog
         @keydown.esc="setShow(false)"
         @click:outside="setShow(false)"
-        scrollable
+        :scrollable="!fullscreen"
         :fullscreen="fullscreen"
         style="border-radius: 15px"
         v-model="show"
         width="800"
     >
-        <v-card style="border-radius: 15px">
-            <dialog-title :title="'Detalle'"></dialog-title>
+        <v-card style="border-radius: 15px" v-if="!data.component">
+            <dialog-title></dialog-title>
 
             <v-card-text>
                 <v-expansion-panels flat v-if="isArray">
@@ -18,7 +18,6 @@
                             {{ item.descripcion }}
                         </v-expansion-panel-header>
                         <v-expansion-panel-content>
-                            <!-- {{ item.bottom_detail }} -->
                             <dialog-content
                                 :items="item.bottom_detail.table.items"
                                 :headers="item.bottom_detail.table.headers"
@@ -27,10 +26,12 @@
                     </v-expansion-panel>
                 </v-expansion-panels>
             </v-card-text>
-            <v-card-text v-if="!isArray">
+            <v-card-text v-if="!isArray && data.table">
                 <dialog-content :items="data.table.items" :headers="data.table.headers" ></dialog-content>
             </v-card-text>
         </v-card>
+
+        <custom-component :name="data.component" v-if="data.component"></custom-component>
     </v-dialog>
 </template>
 
@@ -45,11 +46,13 @@ import { mapState, mapMutations } from "vuex";
 
 import DialogTitle from "@/components/dialog/DialogTitle.vue";
 import DialogContent from "@/components/dialog/DialogContent.vue";
+import CustomComponent from '@/components/custom/CustomComponent.vue'
 
 export default {
     components: {
         "dialog-title": DialogTitle,
         "dialog-content": DialogContent,
+        'custom-component': CustomComponent
     },
     methods: {
         ...mapMutations({
