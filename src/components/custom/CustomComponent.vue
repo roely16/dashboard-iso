@@ -1,12 +1,12 @@
 <template>
-    <component v-bind="data" v-bind:is="customComponent"></component>
+    <component :data_component="data_component" v-bind:is="customComponent"></component>
 </template>
 
 <script>
 export default {
     props: {
         name: String,
-        data: {
+        data_component: {
             type: Object,
             default: function(){
                 return {}

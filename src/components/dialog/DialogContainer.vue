@@ -8,9 +8,11 @@
         v-model="show"
         width="800"
     >
-        <v-card style="border-radius: 15px" v-if="!data.component">
+        <!-- <v-card style="border-radius: 15px" v-if="!data.component">
+
             <dialog-title></dialog-title>
 
+            
             <v-card-text>
                 <v-expansion-panels flat v-if="isArray">
                     <v-expansion-panel v-for="(item, key) in data" :key="key">
@@ -29,9 +31,10 @@
             <v-card-text v-if="!isArray && data.table">
                 <dialog-content :items="data.table.items" :headers="data.table.headers" ></dialog-content>
             </v-card-text>
-        </v-card>
+           
+        </v-card> -->
 
-        <custom-component :name="data.component" v-if="data.component"></custom-component>
+         <custom-component :data_component="data_component" :name="data_component.component" v-if="data_component.component"></custom-component>
     </v-dialog>
 </template>
 
@@ -44,14 +47,10 @@
 <script>
 import { mapState, mapMutations } from "vuex";
 
-import DialogTitle from "@/components/dialog/DialogTitle.vue";
-import DialogContent from "@/components/dialog/DialogContent.vue";
 import CustomComponent from '@/components/custom/CustomComponent.vue'
 
 export default {
     components: {
-        "dialog-title": DialogTitle,
-        "dialog-content": DialogContent,
         'custom-component': CustomComponent
     },
     methods: {
@@ -63,7 +62,7 @@ export default {
         ...mapState({
             show: (state) => state.dialog.show,
             fullscreen: (state) => state.dialog.fullscreen,
-            data: (state) => state.dialog.data,
+            data_component: (state) => state.dialog.data,
         }),
         isArray() {
             return Array.isArray(this.data);
