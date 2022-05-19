@@ -5,7 +5,7 @@
                 v-for="(item, key) in items"
                 :key="key"
                 class="text-center click mt-2 mb-2"
-                @click="setDetail(item.detail)"
+                @click="setDetail(item)"
             >
                 <v-row>
                     <v-col cols="12 pb-0 pt-0 title-bottom">

@@ -8,33 +8,11 @@
         v-model="show"
         width="800"
     >
-        <!-- <v-card style="border-radius: 15px" v-if="!data.component">
-
+        <v-card style="border-radius: 15px" class="elevation-0">
             <dialog-title></dialog-title>
-
-            
-            <v-card-text>
-                <v-expansion-panels flat v-if="isArray">
-                    <v-expansion-panel v-for="(item, key) in data" :key="key">
-                        <v-expansion-panel-header>
-                            {{ item.descripcion }}
-                        </v-expansion-panel-header>
-                        <v-expansion-panel-content>
-                            <dialog-content
-                                :items="item.bottom_detail.table.items"
-                                :headers="item.bottom_detail.table.headers"
-                            ></dialog-content>
-                        </v-expansion-panel-content>
-                    </v-expansion-panel>
-                </v-expansion-panels>
-            </v-card-text>
-            <v-card-text v-if="!isArray && data.table">
-                <dialog-content :items="data.table.items" :headers="data.table.headers" ></dialog-content>
-            </v-card-text>
-           
-        </v-card> -->
-
-         <custom-component :data_component="data_component" :name="data_component.component" v-if="data_component.component"></custom-component>
+            <custom-component :data_component="data_component.detail" :name="data_component.component" v-if="data_component.component"></custom-component>
+        </v-card>
+         
     </v-dialog>
 </template>
 
@@ -45,13 +23,16 @@
 </style>
 
 <script>
-import { mapState, mapMutations } from "vuex";
 
+import DialogTitle from "@/components/dialog/DialogTitle.vue";
 import CustomComponent from '@/components/custom/CustomComponent.vue'
+
+import { mapState, mapMutations } from "vuex";
 
 export default {
     components: {
-        'custom-component': CustomComponent
+        'custom-component': CustomComponent,
+        'dialog-title': DialogTitle
     },
     methods: {
         ...mapMutations({

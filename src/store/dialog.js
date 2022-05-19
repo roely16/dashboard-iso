@@ -23,6 +23,8 @@ const mutations = {
         state.fullscreen = !state.fullscreen
     },
     setData: (state, payload) => {
+        
+        console.log(payload)
 
         if (!payload) {
             state.data = {

@@ -7,7 +7,7 @@ export default {
     props: {
         name: String,
         data_component: {
-            type: Object,
+            type: [Object, Array],
             default: function(){
                 return {}
             }
