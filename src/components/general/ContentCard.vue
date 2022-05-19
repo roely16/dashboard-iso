@@ -2,7 +2,7 @@
     <div>
         <v-card-text>
             <slot name="content">
-                <v-row align="center">
+                <v-row align="center" justify="center">
                     <v-col cols="3">
                         <slot name="chart">
                             <chart :data="content.chart"></chart>

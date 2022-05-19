@@ -28,7 +28,7 @@
                         </div>
                         <custom-component :name="indicador.componente" v-if="indicador.componente"></custom-component>
                         <content-card
-                            else
+                            v-if="!indicador.componente"
                             :bottom="indicador.bottom_detail"
                             :content="indicador.content"
                             :data="indicador"
