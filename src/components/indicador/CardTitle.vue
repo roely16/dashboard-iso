@@ -3,7 +3,7 @@
         <v-row align="center">
             <v-col>
                 <slot name="title">
-                    <h2>
+                    <span class="text-h4 title font-weight-bold">
                         <slot name="icon">
                             <v-chip
                                 v-if="icon.name"
@@ -32,7 +32,7 @@
                             </v-chip>
                         </slot>
                         {{ title }}
-                    </h2>
+                    </span>
                 </slot>
             </v-col>
             <v-col cols="2" class="text-right">
@@ -45,6 +45,13 @@
         </v-row>
     </v-card-title>
 </template>
+
+<style scoped>
+    .title{
+        word-break: break-word;
+        font-size: 32px;
+    }
+</style>
 
 <script>
 export default {
