@@ -22,25 +22,6 @@
                     {{ item.item.id }}
                 </a>
             </template>
-
-            <!-- <template v-slot:expanded-item="{ headers, item }">
-                <td class="mt-2 mb-2" :colspan="headers.length">
-                    <v-row class="mt-2 mb-2">
-                        <v-col>
-                            <v-row>
-                                <v-col cols="2">
-                                    <v-chip label>
-                                        Descripción
-                                    </v-chip>
-                                </v-col>
-                                <v-col cols="10">
-                                    <span v-html="item.message"></span>
-                                </v-col>
-                            </v-row>
-                        </v-col>
-                    </v-row>
-                </td>
-            </template> -->
         </v-data-table>
     </v-card-text>
 </template>
