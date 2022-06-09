@@ -1,36 +1,39 @@
 <template>
-    <div>
-        <v-card-text>
-            <slot name="content">
-                <v-row align="center" justify="center">
-                    <v-col cols="3">
-                        <slot name="chart">
-                            <chart :data="content.chart"></chart>
-                        </slot>
-                    </v-col>
-                    <v-col cols="9" class="text-center" :style="total_styles">
-                        <slot name="total">
-                            <total :data="content.total"></total>
-                        </slot>
-                    </v-col>
-                </v-row>
-            </slot>
-            <slot name="bottom">
-                <bottom :items="bottom"></bottom>
-            </slot>
-        </v-card-text>
-    </div>
+    <v-row justify="center" class="content">
+        <v-col>
+            <v-card-text >
+                <slot name="content">
+                    <v-row align="center" justify="center">
+                        <v-col cols="12" lg="3">
+                            <slot name="chart">
+                                <chart :data="content.chart"></chart>
+                            </slot>
+                        </v-col>
+                        <v-col cols="12" lg="9"  class="text-center" :style="total_styles">
+                            <slot name="total">
+                                <total :data="content.total"></total>
+                            </slot>
+                        </v-col>
+                    </v-row>
+                </slot>
+            </v-card-text>
+        </v-col>
+    </v-row>
 </template>
+
+<style scoped>
+    .content{
+        min-height: 170px;
+    }
+</style>
 
 <script>
 import CardChart from "@/components/indicador/CardChart.vue";
-import CardBottomDetail from "@/components/indicador/CardBottomDetail";
 import CardTotal from "@/components/indicador/CardTotal.vue";
 
 export default {
     components: {
         chart: CardChart,
-        bottom: CardBottomDetail,
         total: CardTotal,
     },
     props: {

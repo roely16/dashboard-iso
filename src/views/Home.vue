@@ -21,6 +21,7 @@
                     :color="indicador.color"
                     :icon="indicador.icon"
                     :cols="indicador.cols"
+                    :indicador="indicador"
                 >
                     <template #content>
                         <div v-if="indicador.error">
