@@ -9,7 +9,7 @@
             </v-col>
         </v-row>
         <progress-bar></progress-bar>
-        <v-row>
+        <v-row align="center">
             <v-col
                 v-for="(indicador, key) in indicadores"
                 :key="key"

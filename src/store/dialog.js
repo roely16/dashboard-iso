@@ -6,7 +6,8 @@ const state = {
     data: {
     },
     search: null,
-    showSearch: false
+    showSearch: false,
+    width: null
 }
 
 const mutations = {
@@ -24,8 +25,6 @@ const mutations = {
     },
     setData: (state, payload) => {
         
-        console.log(payload)
-
         if (!payload) {
             state.data = {
                 table: {
@@ -39,12 +38,17 @@ const mutations = {
         }
 
         state.data = payload
+
+        state.fullscreen = payload.fullscreen
     },
     setSearch: (state, payload) => {
         state.search = payload
     },
     setShowSearch: (state) => {
         state.showSearch = !state.showSearch
+    },
+    setWidth: (state, payload) => {
+        state.width = payload
     }
 }
 
