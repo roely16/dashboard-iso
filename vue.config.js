@@ -3,5 +3,6 @@ module.exports = defineConfig({
     transpileDependencies: ["vuetify"],
     devServer: {
         host: 'localhost'
-    }
+    },
+    publicPath: process.env.NODE_ENV === 'production' ? '/apps/dashboard-iso/' : '/',
 });

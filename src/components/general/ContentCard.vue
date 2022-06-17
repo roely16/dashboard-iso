@@ -1,5 +1,5 @@
 <template>
-    <v-row justify="center" class="content">
+    <v-row ref="card_content" justify="center" class="content">
         <v-col>
             <v-card-text >
                 <slot name="content">
@@ -11,7 +11,7 @@
                         </v-col>
                         <v-col cols="12" lg="9"  class="text-center" :style="total_styles">
                             <slot name="total">
-                                <total :data="content.total"></total>
+                                <total :content="data" :data="content.total"></total>
                             </slot>
                         </v-col>
                     </v-row>
@@ -51,17 +51,32 @@ export default {
             }
         }
     },
+    data(){
+        return{
+            clientWidth: 0
+        }
+    },
+    methods: {
+        handleResize () {
+            if (this.$refs.card_content) {
+                this.clientWidth = this.$refs.card_content.clientWidth
+
+            }
+        }
+    },
     computed:{
         total_styles(){
 
-            const size = 9
-
-            const font_size = Math.floor((this.data.cols * size) / 6)
-
             return{
-                'font-size': font_size + 'vw'
+                'font-size': (this.clientWidth * 0.20) + 'px'
             }
         }
+    },
+    mounted(){
+
+        this.handleResize()
+        window.addEventListener('resize', this.handleResize)
+
     }
 };
 </script>

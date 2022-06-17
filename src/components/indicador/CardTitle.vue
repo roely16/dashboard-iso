@@ -37,9 +37,9 @@
             </v-col>
             <v-col cols="2" class="text-right">
                 <slot name="action">
-                    <v-btn icon>
+                    <!-- <v-btn icon>
                         <v-icon> mdi-dots-horizontal </v-icon>
-                    </v-btn>
+                    </v-btn> -->
                 </slot>
             </v-col>
         </v-row>

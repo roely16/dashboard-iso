@@ -1,5 +1,6 @@
 <template>
     <span>
+        
         {{ data.value }}
     </span>
 </template>
@@ -8,6 +9,12 @@
 export default {
     props: {
         data: {
+            type: Object,
+            default: function(){
+                return {}
+            }
+        },
+        content: {
             type: Object,
             default: function(){
                 return {}
