@@ -5,4 +5,9 @@ module.exports = defineConfig({
         host: 'localhost'
     },
     publicPath: process.env.NODE_ENV === 'production' ? '/apps/dashboard-iso/' : '/',
+    pwa: {
+		workboxOptions: {
+			skipWaiting: true
+		}
+	}
 });
