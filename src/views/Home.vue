@@ -27,7 +27,7 @@
                         <div v-if="indicador.error">
                             <error-message :message="indicador.error.message"></error-message>
                         </div>
-                        <custom-component :data_component="indicador.data" :name="indicador.componente" v-if="indicador.componente"></custom-component>
+                        <custom-component :data_component="indicador" :name="indicador.componente" v-if="indicador.componente" />
                         <content-card
                             v-if="!indicador.componente"
                             :bottom="indicador.bottom_detail"

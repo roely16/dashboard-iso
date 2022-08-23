@@ -6,14 +6,14 @@
                     <v-card-text class="pb-0">
                         <h3 class="font-weight-light mb-5">Cumplimiento</h3>
                         <span class="text-h3">
-                            {{ data_component.cumplimiento }}%
+                            {{ data_component.data.cumplimiento }}%
                         </span>
                         <v-row class="mt-1" justify="center">
                             <v-col cols="8">
                                 <v-card
                                     elevation="0"
                                     color="grey lighten-2"
-                                    @click="setDetail(data_component.menor_10)"
+                                    @click="setDetail(data_component.data.menor_10)"
                                 >
                                     <v-card-text
                                         class="pl-1 pr-1 pt-1 pb-1"
@@ -23,7 +23,7 @@
                                         </small>
                                         <br />
                                         <strong>
-                                            {{ data_component.menor_10.value }}
+                                            {{ data_component.data.menor_10.value }}
                                         </strong>
                                     </v-card-text>
                                 </v-card>
@@ -40,14 +40,14 @@
                             <v-card-text class="pt-0 pb-0">
                                 <h4 class="font-weight-light">Mensual</h4>
                                 <span class="text-h3">
-                                    {{ data_component.mensual }}%
+                                    {{ data_component.data.mensual }}%
                                 </span>
                                 <v-row class="mt-1" justify="center">
                                     <v-col cols="8">
                                         <v-card
                                             elevation="0"
                                             color="grey lighten-2"
-                                            @click="setDetail(data_component.menor_20)"
+                                            @click="setDetail(data_component.data.menor_20)"
                                         >
                                             <v-card-text
                                                 class="pl-1 pr-1 pt-1 pb-1"
@@ -57,7 +57,7 @@
                                                 </small>
                                                 <br />
                                                 <strong>
-                                                    {{ data_component.menor_20.value }}
+                                                    {{ data_component.data.menor_20.value }}
                                                 </strong>
                                             </v-card-text>
                                         </v-card>
@@ -73,14 +73,14 @@
                                     Trimestral
                                 </h4>
                                 <span class="text-h3">
-                                    {{ data_component.trimestral }}%
+                                    {{ data_component.data.trimestral }}%
                                 </span>
                                 <v-row class="mt-1" justify="center">
                                     <v-col cols="8">
                                         <v-card
                                             elevation="0"
                                             color="grey lighten-2"
-                                            @click="setDetail(data_component.menor_45)"
+                                            @click="setDetail(data_component.data.menor_45)"
                                         >
                                             <v-card-text
                                                 class="pl-1 pr-1 pt-1 pb-1"
@@ -90,7 +90,7 @@
                                                 </small>
                                                 <br />
                                                 <strong>
-                                                    {{ data_component.menor_45.value }}
+                                                    {{ data_component.data.menor_45.value }}
                                                 </strong>
                                             </v-card-text>
                                         </v-card>
@@ -113,7 +113,7 @@
         
         <v-divider v-if="expand" class="mt-4 mb-4"></v-divider>
 
-        <bottom-detail v-if="expand" :items="data_component.bottom_detail"></bottom-detail>
+        <bottom-detail v-if="expand" :items="data_component.data.bottom_detail"></bottom-detail>
     </v-card-text>
 </template>
 

@@ -19,9 +19,6 @@ export default {
 
                 const AsyncComponent = () => ({
                     component: import("@/components/charts/" + chartName),
-                    props: {
-                        type: 1
-                    }
                 })
 
                 return AsyncComponent
