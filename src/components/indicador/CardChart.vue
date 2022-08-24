@@ -8,7 +8,8 @@
 
 export default {
     props: {
-        data: Object
+        data: Object,
+        plugins: Array
     },
     computed: {
         currentChart: function(){

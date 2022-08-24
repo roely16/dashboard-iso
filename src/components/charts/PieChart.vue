@@ -1,10 +1,12 @@
 <template>
-    <pie :height="height" :chart-options="chartOptions" :chart-data="chartData"></pie>
+    <pie :plugins="chartOptions.dataLabels ? plugins : []" :height="height" :chart-options="chartOptions" :chart-data="chartData"></pie>
 </template>
 
 <script>
 
 import { Pie } from "vue-chartjs/legacy";
+
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 export default {
     props: {
@@ -15,8 +17,10 @@ export default {
     components: {
         'pie': Pie
     },
-    mounted(){
-        console.log(this.chartOptions)
+    data(){
+        return{
+            plugins: [ChartDataLabels]
+        }
     }
 }
 </script>
