@@ -63,7 +63,8 @@ export default {
     },
     data(){
         return{
-            overlay: true
+            overlay: true,
+            interval: null
         }
     },
     methods: {
@@ -85,6 +86,8 @@ export default {
         this.setFirstLoading(true)
         
         this.getDashboard();
+
     },
+    
 };
 </script>

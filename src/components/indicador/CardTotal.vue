@@ -1,6 +1,5 @@
 <template>
     <span>
-        
         {{ data.value }}
     </span>
 </template>
