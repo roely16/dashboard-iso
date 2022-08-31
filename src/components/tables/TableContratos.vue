@@ -10,6 +10,8 @@
             show-expand
             item-key="id_programacion"
             single-expand
+            fixed-header
+            :height="data_component.table.items.length > 10 ? 550 : null"
         >
 
             <template v-slot:expanded-item="{ headers, item }">

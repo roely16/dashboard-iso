@@ -1,6 +1,6 @@
 <template>
     <v-card-title class="text-h5 mt-2">
-        <v-btn @click="setShowSearch()" icon>
+        <v-btn v-show="showBtnSearch" @click="setShowSearch()" icon>
             <v-icon>
                 mdi-magnify
             </v-icon>
@@ -35,7 +35,8 @@ export default {
         ...mapState({
             fullscreen: state => state.dialog.fullscreen,
             data: state => state.dialog.data,
-            showSearch: state => state.dialog.showSearch
+            showSearch: state => state.dialog.showSearch,
+            showBtnSearch: state => state.dialog.showBtnSearch
         }),
         search: {
             get(){

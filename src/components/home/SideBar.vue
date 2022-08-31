@@ -69,7 +69,8 @@ export default {
             setDrawer: 'menu/setDrawer',
             setShow: 'dialog/setShow',
             setData: 'dialog/setData',
-            setFullScreen: 'dialog/setFullScreen'
+            setFullScreen: 'dialog/setFullScreen',
+            setShowBtnSearch: 'dialog/setShowBtnSearch'
         }),
         ...mapActions({
             getMenu: 'menu/getMenu',
@@ -79,11 +80,13 @@ export default {
         showConfig(){
 
             const data = {
-                component: 'config/Config'
+                component: 'config/Config',
+                title: 'Configuración'
             }
 
             this.setData(data)
             this.setFullScreen(true)
+            this.setShowBtnSearch(false)
 
             this.setShow(true)
         }

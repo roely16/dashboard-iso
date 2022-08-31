@@ -7,6 +7,8 @@
             class="elevation-0"
             :search="search"
             :hide-default-footer="data_component.table.items.length == 0 ? true : false"
+            fixed-header
+            :height="data_component.table.items.length > 10 ? 530 : null"
         ></v-data-table>
     </v-card-text>
 </template>

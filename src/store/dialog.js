@@ -7,7 +7,8 @@ const state = {
     },
     search: null,
     showSearch: false,
-    width: null
+    width: null,
+    showBtnSearch: true
 }
 
 const mutations = {
@@ -49,6 +50,16 @@ const mutations = {
     },
     setWidth: (state, payload) => {
         state.width = payload
+    },
+    setShowBtnSearch: (state, payload) => {
+        state.showBtnSearch = payload
+    },
+    resetModal: ({ state }) => {
+        state.fullscreen = false
+        state.search = null,
+        state.showSearch = false,
+        state.width = null,
+        state.showBtnSearch = true
     }
 }
 

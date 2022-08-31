@@ -10,6 +10,8 @@
                 data_component.table.items.length == 0 ? true : false
             "
             item-key="id"
+            fixed-header
+            height="550"
         >
             <template v-slot:[`item.descripcion`]="item">
                 <more-text additional-container-css="padding-left: 0px; padding-bottom: 0px; padding-right: 0px" more-text="Mostrar más" less-text="Mostrar menos" :text="item.item.descripcion"></more-text>

@@ -37,7 +37,8 @@ export default {
     methods: {
         ...mapMutations({
             setShow: "dialog/setShow",
-        }),
+            resetModal: 'dialog/resetModal'
+        })
     },
     computed: {
         ...mapState({
@@ -49,5 +50,14 @@ export default {
             return Array.isArray(this.data);
         },
     },
+    watch: {
+        show: function(val){
+
+            if (!val) {
+                console.log('modal close')
+            }
+
+        }
+    }
 };
 </script>
