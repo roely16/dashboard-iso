@@ -7,6 +7,7 @@ import menu from "./menu";
 import dashboard from './dashboard'
 import dialog from './dialog'
 import alert from './alert'
+import config from './config'
 
 export default new Vuex.Store({
     state: {},
@@ -17,6 +18,7 @@ export default new Vuex.Store({
         menu: menu,
         dashboard: dashboard,
         dialog: dialog,
-        alert: alert
+        alert: alert,
+        config: config
     },
 });

@@ -44,7 +44,7 @@ export default {
         ...mapState({
             show: (state) => state.dialog.show,
             fullscreen: (state) => state.dialog.fullscreen,
-            data_component: (state) => state.dialog.data,
+            data_component: (state) => state.dialog.data
         }),
         isArray() {
             return Array.isArray(this.data);

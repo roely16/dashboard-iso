@@ -1,52 +1,59 @@
 <template>
-    <v-tabs vertical>
-        <v-tab v-for="(tab, key) in options" :key="key">
-            <v-icon left>
-                {{ tab.icon }}
-            </v-icon>
-            {{ tab.text }}
-        </v-tab>
-        <v-tab-item>
-            <v-card flat>
-                <v-card-text>
-                    <p>
-                        Sed aliquam ultrices mauris. Donec posuere vulputate
-                        arcu. Morbi ac felis. Etiam feugiat lorem non metus. Sed
-                        a libero.
-                    </p>
-
-                    <p>
-                        Nam ipsum risus, rutrum vitae, vestibulum eu, molestie
-                        vel, lacus. Aenean tellus metus, bibendum sed, posuere
-                        ac, mattis non, nunc. Aliquam lobortis. Aliquam
-                        lobortis. Suspendisse non nisl sit amet velit hendrerit
-                        rutrum.
-                    </p>
-
-                    <p class="mb-0">
-                        Phasellus dolor. Fusce neque. Fusce fermentum odio nec
-                        arcu. Pellentesque libero tortor, tincidunt et,
-                        tincidunt eget, semper nec, quam. Phasellus blandit leo
-                        ut odio.
-                    </p>
-                </v-card-text>
-            </v-card>
-        </v-tab-item>
-    </v-tabs>
+    <v-container fluid>
+        <v-row>
+            <v-col cols="2">
+                <v-tabs v-model="selected" vertical>
+                    <v-tab v-for="(tab, key) in options" :key="key">
+                        <v-icon left>
+                            {{ tab.icon }}
+                        </v-icon>
+                        {{ tab.text }}
+                    </v-tab>
+                    <v-tab-item> </v-tab-item>
+                </v-tabs>
+            </v-col>
+            <v-col>
+                <v-card flat>
+                    <v-card-text>
+                        <component v-bind:is="customComponent"></component>
+                    </v-card-text>
+                </v-card>
+            </v-col>
+        </v-row>
+    </v-container>
 </template>
 
 <script>
 export default {
     name: "OptionList",
-    data(){
-        return{
+    data() {
+        return {
             options: [
                 {
-                    text: 'Indicadores',
-                    icon: 'mdi-monitor-dashboard'
-                }
-            ]
-        }
-    }
+                    text: "Indicadores",
+                    icon: "mdi-monitor-dashboard",
+                    component: "FreezeOption",
+                },
+                {
+                    text: "Configuración",
+                    icon: "mdi-cog",
+                    component: "ConfigModule",
+                },
+            ],
+            selected: 0,
+        };
+    },
+    computed: {
+        customComponent: function () {
+            const AsyncComponent = () => ({
+                component: import(
+                    "@/components/config/" +
+                        this.options[this.selected].component
+                ),
+            });
+
+            return AsyncComponent;
+        },
+    },
 };
 </script>
