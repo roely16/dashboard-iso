@@ -6,7 +6,7 @@
                     <v-col cols="12">
                         <v-avatar rounded size="100">
                             <v-img
-                                src="https://cdn-icons-png.flaticon.com/512/891/891399.png"
+                                :src="require('@/assets/img/lock.png')"
                             ></v-img>
                         </v-avatar>
                     </v-col>

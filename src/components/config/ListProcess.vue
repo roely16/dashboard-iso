@@ -47,6 +47,9 @@
 
         <v-divider class="mt-4 mb-4"></v-divider>
 
+        <!-- Vista Previa del Proceso Seleccionado -->
+        <preview-data v-if="process_preview"></preview-data>
+
         <v-row>
             <v-col v-for="(process, key) in process" :key="key" cols="3">
                 <v-card
@@ -64,7 +67,7 @@
                     <v-card-actions>
                         <v-btn color="primary" text>CONGELAR </v-btn>
                         <v-spacer></v-spacer>
-                        <v-btn icon>
+                        <v-btn @click="fetchDataProcess(process)" icon>
                             <v-icon>
                                 mdi-chart-bar
                             </v-icon>
@@ -77,7 +80,9 @@
 </template>
 
 <script>
+
 import DialogDatePicker from "./DialogDatePicker.vue";
+import PreviewData from './PreviewData'
 
 import { mapState, mapActions } from "vuex";
 
@@ -85,6 +90,7 @@ export default {
     name: "ListProcess",
     components: {
         "dialog-date-picker": DialogDatePicker,
+        'preview-data': PreviewData
     },
     data() {
         return {
@@ -96,6 +102,7 @@ export default {
         ...mapActions({
             fetchProcess: "config/fetchProcess",
             doLogout: "config/doLogout",
+            fetchDataProcess: 'config/fetchDataProcess'
         }),
         setTime() {
             this.interval = setInterval(() => {
@@ -112,6 +119,7 @@ export default {
         ...mapState({
             process: (state) => state.config.process,
             date: (state) => state.config.date,
+            process_preview: state => state.config.process_preview
         }),
         userData() {
             return JSON.parse(localStorage.getItem("dashboard-iso"));

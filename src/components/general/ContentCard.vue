@@ -57,16 +57,15 @@ export default {
         }
     },
     methods: {
-        handleResize () {
+        async handleResize () {
             if (this.$refs.card_content) {
-                this.clientWidth = this.$refs.card_content.clientWidth
+                this.clientWidth = await this.$refs.card_content.clientWidth
 
             }
         }
     },
     computed:{
         total_styles(){
-
             return{
                 'font-size': (this.clientWidth * 0.20) + 'px'
             }
@@ -75,7 +74,10 @@ export default {
     mounted(){
 
         this.handleResize()
-        window.addEventListener('resize', this.handleResize)
+        .then(() => {
+            window.addEventListener('resize', this.handleResize)
+        })
+       
 
     }
 };

@@ -1,7 +1,7 @@
 <template>
     <v-container fluid>
         <v-row>
-            <v-col cols="2">
+            <v-col class="pl-1" cols="2">
                 <v-tabs v-model="selected" vertical>
                     <v-tab v-for="(tab, key) in options" :key="key">
                         <v-icon left>
@@ -12,6 +12,7 @@
                     <v-tab-item> </v-tab-item>
                 </v-tabs>
             </v-col>
+            <v-divider vertical></v-divider>
             <v-col>
                 <v-card flat>
                     <v-card-text>
