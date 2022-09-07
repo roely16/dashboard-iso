@@ -7,7 +7,7 @@ const state = {
     user_data: JSON.parse(localStorage.getItem('dashboard-iso')),
     process: [],
     date: new Date().toISOString().substr(0, 7),
-    process_preview: {},
+    process_preview: null,
     loading: false,
     logged: false
 }
@@ -104,6 +104,36 @@ const actions = {
             payload.detail = response.data
 
             commit('setProcessPreview', payload)
+
+        } catch (error) {
+            
+            console.log(error)
+
+        }
+
+    },
+    async resetPreview({ commit }){
+        try {
+            
+            commit('setProcessPreview', null)
+
+        } catch (error) {
+            
+            console.log(error)
+
+        }
+    },
+    async saveData(state, payload){
+
+        try {
+            
+            const userData = JSON.parse(localStorage.getItem('dashboard-iso'))
+
+            payload.registrado_por = userData.usuario
+
+            const response = await axios.post(process.env.VUE_APP_API_URL + 'save_data', payload)
+
+            console.log(response.data)
 
         } catch (error) {
             

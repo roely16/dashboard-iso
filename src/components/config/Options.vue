@@ -1,8 +1,8 @@
 <template>
-    <v-container fluid>
+    <div fluid>
         <v-row>
-            <v-col class="pl-1" cols="2">
-                <v-tabs v-model="selected" vertical>
+            <v-col>
+                <v-tabs v-model="selected">
                     <v-tab v-for="(tab, key) in options" :key="key">
                         <v-icon left>
                             {{ tab.icon }}
@@ -12,7 +12,8 @@
                     <v-tab-item> </v-tab-item>
                 </v-tabs>
             </v-col>
-            <v-divider vertical></v-divider>
+        </v-row>
+        <v-row>
             <v-col>
                 <v-card flat>
                     <v-card-text>
@@ -21,7 +22,7 @@
                 </v-card>
             </v-col>
         </v-row>
-    </v-container>
+    </div>
 </template>
 
 <script>

@@ -50,7 +50,7 @@
         <!-- Vista Previa del Proceso Seleccionado -->
         <preview-data v-if="process_preview"></preview-data>
 
-        <v-row>
+        <v-row v-else>
             <v-col v-for="(process, key) in process" :key="key" cols="3">
                 <v-card
                     flat

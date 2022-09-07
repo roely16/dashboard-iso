@@ -1,5 +1,7 @@
 import axios from 'axios'
 
+import router from '../router'
+
 const namespaced = true
 
 const state = {
@@ -120,6 +122,8 @@ const actions = {
     },
     async selectMenu({commit, dispatch}, payload){
 
+        router.push({ name: 'home' })
+        
         commit('selectOption', payload)
 
         localStorage.setItem('dashboard-iso-option-selected', payload.id)

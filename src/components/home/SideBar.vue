@@ -42,7 +42,7 @@
 
         <template v-slot:append>
             <div class="text-center pb-5">
-                <v-btn @click="showConfig()" large text>
+                <v-btn @click="showConfig" large text>
                     <v-icon> mdi-cog </v-icon>
                 </v-btn>
                 <v-btn large text>
@@ -79,16 +79,9 @@ export default {
         }),
         showConfig(){
 
-            const data = {
-                component: 'config/Config',
-                title: 'Configuración'
-            }
+            this.setDrawer(false)
 
-            this.setData(data)
-            this.setFullScreen(true)
-            this.setShowBtnSearch(false)
-
-            this.setShow(true)
+            this.$router.push({ name: 'config' })
         }
     },
     computed: {
