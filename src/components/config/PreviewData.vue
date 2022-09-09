@@ -18,11 +18,17 @@
                 </h2>
                 <small> Última Actualización: 2022-08-22 15:32:33 </small>
             </v-col>
-            <v-col cols="3" align="end">
+            <v-col cols="4" align="end">
+                <v-progress-circular
+                    indeterminate
+                    color="primary"
+                    class="mr-4"
+                    v-if="loading"
+                ></v-progress-circular>
                 <v-btn @click="saveData(indicador)" class="mr-2" elevation="0">
                     <v-icon> mdi-content-save </v-icon>
                 </v-btn>
-                <v-btn class="mr-2" elevation="0">
+                <v-btn @click="fetchDataProcess()" class="mr-2" elevation="0">
                     <v-icon> mdi-refresh </v-icon>
                 </v-btn>
                 <v-btn
@@ -78,13 +84,14 @@
                 </h1>
             </v-col>
         </v-row>
-        <v-row align="center" v-if="kpi_selected">
+        <v-row align="center" v-if="indicador">
             <v-col cols="3">
                 <v-select
                     v-model="bottom_selected"
                     :items="bottom_options"
                     hide-details
                     filled
+                    placeholder="Seleccione una opción"
                 ></v-select>
             </v-col>
             <v-col align="end" cols="9">
@@ -93,20 +100,29 @@
                     class="mr-2"
                     elevation="0"
                     :disabled="!bottom_selected"
+                    
                 >
                     Seleccionar
                     <v-icon right>
-                        {{ table_select ? 'mdi-eye-off' : 'mdi-eye'}}
+                        {{ table_select ? "mdi-eye-off" : "mdi-eye" }}
                     </v-icon>
                 </v-btn>
                 <v-divider vertical></v-divider>
-                <v-badge :content="rows_selected.length" :value="rows_selected.length" bordered color="error" icon="mdi-lock" overlap>
+                <v-badge
+                    :content="rows_selected.length"
+                    :value="rows_selected.length"
+                    bordered
+                    color="error"
+                    icon="mdi-lock"
+                    overlap
+                >
                     <v-btn
                         :disabled="
                             !bottom_selected || rows_selected.length == 0
                         "
                         elevation="0"
                         color="error"
+                        @click="removeRow()"
                     >
                         Eliminar
                         <v-icon right> mdi-delete </v-icon>
@@ -129,6 +145,7 @@
                     :items="table_detail.items"
                     :show-select="table_select"
                     :item-key="!table_select ? null : first_header"
+                    v-model="rows_selected"
                 >
                     <template
                         v-for="(item_table, key) in table_detail.headers"
@@ -173,7 +190,6 @@ export default {
     data() {
         return {
             view_mode: null,
-            kpi_selected: null,
             bottom_selected: null,
             table_select: false,
             rows_selected: [],
@@ -182,9 +198,12 @@ export default {
     methods: {
         ...mapMutations({
             setProcessPreview: "config/setProcessPreview",
+            setKPISelected: 'config/setKPISelected',
+            setIndicador: 'config/setIndicador'
         }),
         ...mapActions({
             saveData: "config/saveData",
+            fetchDataProcess: 'config/fetchDataProcess'
         }),
         getSlotName(item) {
             return `item.` + item.value;
@@ -193,33 +212,34 @@ export default {
             console.log("update total");
         },
         addRow() {
+
             // Se agrega un nuevo objeto al array de items
-            let new_row = {};
+            this.table_detail.items.unshift({});
 
-            this.table_detail.items.unshift(new_row);
+            // Realizar la petición al backend para reprocesar los datos nuevos
 
-            // Se debe de sumar al total del campo correspondiente
-            this.current_bottom.value++;
-
-            // Determinar si es necesario recalcular el total
-            console.log(this.current_bottom)
         },
-        removeRow() {}
+        removeRow() {
+
+            const result = this.table_detail.items.filter(({ expediente: id1 }) => !this.rows_selected.some(({ expediente: id2 }) => id2 === id1));
+
+            this.table_detail.items = result
+
+        },
     },
     computed: {
         ...mapState({
             process: (state) => state.config.process_preview,
+            loading: (state) => state.config.loading,
+            indicador: state => state.config.indicador
         }),
-        indicador() {
-            if (this.kpi_selected && this.process) {
-                const result = this.process.detail.indicadores.filter(
-                    (indicador) => indicador.id == this.kpi_selected
-                );
-
-                return result[0];
+        kpi_selected: {
+            get(){
+                return this.$store.state.config.kpi_selected
+            },
+            set(val){
+                this.setKPISelected(val)
             }
-
-            return false;
         },
         bottom_options() {
             let items = [];
@@ -270,5 +290,28 @@ export default {
             return null;
         },
     },
+    watch: {
+        kpi_selected(val){
+
+            if (val) {
+                
+                const result = this.process.detail.indicadores.filter(
+
+                    (item) => item.id == val
+        
+                );
+        
+                if (result) {
+                    
+                    const response = result[0]
+
+                    this.setIndicador(response)
+                    
+                }
+
+            }
+
+        }
+    }
 };
 </script>

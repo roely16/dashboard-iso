@@ -9,7 +9,11 @@ const state = {
     date: new Date().toISOString().substr(0, 7),
     process_preview: null,
     loading: false,
-    logged: false
+    logged: false,
+    select_process: null,
+    kpi_selected: null,
+    bottom_selected: null,
+    indicador: null
 }
 
 const mutations = {
@@ -30,6 +34,15 @@ const mutations = {
     },
     setLogged: (state, payload) => {
         state.logged = payload
+    },
+    setKPISelected: (state, payload) => {
+        state.kpi_selected = payload
+    },
+    setBottomSelected: (state, payload) => {
+        state.bottom_selected = payload
+    },
+    setIndicador: (state, payload) => {
+        state.indicador = payload
     }
 }
 
@@ -92,18 +105,30 @@ const actions = {
 
         try {
             
-            console.log(payload)
+            commit('setLoading', true)
 
             const data = {
                 date: state.date,
-                id_proceso: payload.id
+                id_proceso: payload ? payload.id : state.process_preview.id
             }
 
-            const response = await axios.post(process.env.VUE_APP_API_URL + 'get_dashboard', data)
+            const response = await axios.post(process.env.VUE_APP_API_URL + 'get_dashboard_config', data)
 
-            payload.detail = response.data
+            if (payload) {
+                
+                payload.detail = response.data
+                commit('setProcessPreview', payload)
 
-            commit('setProcessPreview', payload)
+            }else{
+
+                let update_process = state.process_preview
+                update_process.detail = response.data 
+
+                commit('setProcessPreview', update_process)
+
+            }
+
+            commit('setLoading', false)
 
         } catch (error) {
             
@@ -123,17 +148,19 @@ const actions = {
 
         }
     },
-    async saveData(state, payload){
+    async saveData({ commit }, payload){
 
         try {
             
+            commit('setLoading', true)
+
             const userData = JSON.parse(localStorage.getItem('dashboard-iso'))
 
             payload.registrado_por = userData.usuario
 
-            const response = await axios.post(process.env.VUE_APP_API_URL + 'save_data', payload)
+            await axios.post(process.env.VUE_APP_API_URL + 'save_data', payload)
 
-            console.log(response.data)
+            commit('setLoading', false)
 
         } catch (error) {
             

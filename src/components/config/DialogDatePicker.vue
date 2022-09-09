@@ -37,9 +37,14 @@ export default {
             setDate: 'config/setDate'
         }),
         ...mapActions({
+            fetchDataProcess: 'config/fetchDataProcess'
         }),
         saveDate(date){
+
+            // * Obtener de nuevo los datos
             this.$refs.dialog.save(date)
+
+            this.fetchDataProcess()
         }
     },
     computed: {

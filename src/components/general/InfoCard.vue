@@ -6,7 +6,7 @@
             </slot>
             <slot name="content"></slot>
             <v-card-actions>
-                <bottom :items="indicador.bottom_detail"></bottom>
+                <bottom :indicador="indicador" :items="indicador.bottom_detail"></bottom>
             </v-card-actions>
         </v-card>
     </div>

@@ -9,25 +9,48 @@
                                 <chart :data="content.chart"></chart>
                             </slot>
                         </v-col>
-                        <v-col cols="12" lg="9"  class="text-center" :style="total_styles">
+                        <v-col
+                            @click="
+                                data.editable ? showEdit(content.total) : false
+                            "
+                            cols="12"
+                            lg="9"
+                            class="text-center"
+                            :style="total_styles"
+                        >
                             <slot name="total">
-                                <total :content="data" :data="content.total"></total>
+                                <total
+                                    :content="data"
+                                    :data="content.total"
+                                ></total>
                             </slot>
                         </v-col>
                     </v-row>
                 </slot>
             </v-card-text>
+
+            <custom-dialog title="Edición" ref="dialog">
+                <template #content>
+                    <edit-field
+                        :value="content.total.value"
+                        placeholder="Total"
+                    ></edit-field>
+                </template>
+            </custom-dialog>
         </v-col>
     </v-row>
 </template>
 
 <style scoped>
-    .content{
-        min-height: 170px;
-    }
+.content {
+    min-height: 170px;
+}
 </style>
 
 <script>
+import CustomModal from "@/components/dialog/CustomModal";
+import EditField from "@/components/dialog/EditField";
+
 import CardChart from "@/components/indicador/CardChart.vue";
 import CardTotal from "@/components/indicador/CardTotal.vue";
 
@@ -35,50 +58,53 @@ export default {
     components: {
         chart: CardChart,
         total: CardTotal,
+        "custom-dialog": CustomModal,
+        "edit-field": EditField,
     },
     props: {
         content: {
             type: Object,
-            default: function(){
-                return {}
-            }
+            default: function () {
+                return {};
+            },
         },
         bottom: Array,
         data: {
             type: Object,
-            default: function(){
-                return {}
-            }
-        }
+            default: function () {
+                return {};
+            },
+        },
     },
-    data(){
-        return{
-            clientWidth: 0
-        }
+    data() {
+        return {
+            clientWidth: 0,
+        };
     },
     methods: {
-        async handleResize () {
+        async handleResize() {
             if (this.$refs.card_content) {
-                this.clientWidth = await this.$refs.card_content.clientWidth
-
+                this.clientWidth = await this.$refs.card_content.clientWidth;
             }
-        }
-    },
-    computed:{
-        total_styles(){
-            return{
-                'font-size': (this.clientWidth * 0.20) + 'px'
-            }
-        }
-    },
-    mounted(){
+        },
+        showEdit(value) {
+            console.log(value);
 
-        this.handleResize()
-        .then(() => {
-            window.addEventListener('resize', this.handleResize)
-        })
-       
-
-    }
+            this.$refs.dialog.activeDialog(true);
+        },
+    },
+    computed: {
+        total_styles() {
+            return {
+                "font-size": this.clientWidth * 0.2 + "px",
+                cursor: "pointer",
+            };
+        },
+    },
+    mounted() {
+        this.handleResize().then(() => {
+            window.addEventListener("resize", this.handleResize);
+        });
+    },
 };
 </script>
