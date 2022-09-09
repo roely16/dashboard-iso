@@ -105,6 +105,9 @@ const actions = {
 
         try {
             
+            if (payload) {
+                payload.loading = true
+            }
             commit('setLoading', true)
 
             const data = {
@@ -118,6 +121,7 @@ const actions = {
                 
                 payload.detail = response.data
                 commit('setProcessPreview', payload)
+                payload.loading = false
 
             }else{
 

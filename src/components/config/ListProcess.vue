@@ -67,7 +67,7 @@
                     <v-card-actions>
                         <v-btn color="primary" text>CONGELAR </v-btn>
                         <v-spacer></v-spacer>
-                        <v-btn @click="fetchDataProcess(process)" icon>
+                        <v-btn :loading="process.loading" :disabled="process.loading" @click="fetchDataProcess(process)" icon>
                             <v-icon>
                                 mdi-chart-bar
                             </v-icon>
