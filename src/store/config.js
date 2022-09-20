@@ -43,6 +43,34 @@ const mutations = {
     },
     setIndicador: (state, payload) => {
         state.indicador = payload
+    },
+    updateTotal: (state, payload) => {
+
+        state.bottom_selected.value = parseInt(payload)
+
+        // * Actualizar el total
+
+        // * Obtener de bottom_detail los identificados como up y down
+
+        let up = state.indicador.bottom_detail.find(item => item.divide == 'up')
+        
+        let down = state.indicador.bottom_detail.find(item => item.divide == 'down')
+
+        const result = up.value / down.value
+        
+        if (down.value <= 0 || !down.value || up.value <= 0 || !up.value) {
+            
+            state.indicador.content.total.value = 0
+
+            return 
+        }
+
+        let total = result * 100
+
+        state.indicador.content.total.value = total > 100 ? 100 : Number.isInteger(total) ? total : total.toFixed(1)
+
+        // * Actualizar el gráfico 
+
     }
 }
 

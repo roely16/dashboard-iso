@@ -25,7 +25,7 @@
                 <edit-field
                     :value="value"
                     :placeholder="placeholder"
-                    @updateValue="(val) => updateValue(val)"
+                    @updateValue="(val) => updateTotal(val)"
                     :data="data"
                 ></edit-field>
             </template>
@@ -77,7 +77,8 @@ export default {
         ...mapMutations({
             setShow: 'dialog/setShow',
             setData: 'dialog/setData',
-            setBottomSelected:  'config/setBottomSelected'
+            setBottomSelected:  'config/setBottomSelected',
+            updateTotal: 'config/updateTotal'
         }),
         setDetail(detail){
             
@@ -97,28 +98,30 @@ export default {
         },
         updateValue(val){
 
-            this.bottom_selected.value = parseInt(val)
+            this.updateTotal(val)
 
-            // Actualizar el total
+            // this.bottom_selected.value = parseInt(val)
 
-            // * Obtener de bottom_detail los identificados como up y down
+            // // Actualizar el total
 
-            let up = this.indicador_get.bottom_detail.find(item => item.divide == 'up')
+            // // * Obtener de bottom_detail los identificados como up y down
+
+            // let up = this.indicador_get.bottom_detail.find(item => item.divide == 'up')
             
-            let down = this.indicador_get.bottom_detail.find(item => item.divide == 'down')
+            // let down = this.indicador_get.bottom_detail.find(item => item.divide == 'down')
 
-            const result = up.value / down.value
+            // const result = up.value / down.value
             
-            if (down.value <= 0 || !down.value || up.value <= 0 || !up.value) {
+            // if (down.value <= 0 || !down.value || up.value <= 0 || !up.value) {
                 
-                this.indicador_get.content.total.value = 0
+            //     this.indicador_get.content.total.value = 0
 
-                return 
-            }
+            //     return 
+            // }
 
-            let total = result * 100
+            // let total = result * 100
 
-            this.indicador_get.content.total.value = total > 100 ? 100 : Number.isInteger(total) ? total : total.toFixed(1)
+            // this.indicador_get.content.total.value = total > 100 ? 100 : Number.isInteger(total) ? total : total.toFixed(1)
             
         }
     },

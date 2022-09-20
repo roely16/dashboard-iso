@@ -92,6 +92,7 @@
                     hide-details
                     filled
                     placeholder="Seleccione una opción"
+                    @change="updateBottomSelected()"
                 ></v-select>
             </v-col>
             <v-col align="end" cols="9">
@@ -199,7 +200,9 @@ export default {
         ...mapMutations({
             setProcessPreview: "config/setProcessPreview",
             setKPISelected: 'config/setKPISelected',
-            setIndicador: 'config/setIndicador'
+            setIndicador: 'config/setIndicador',
+            updateTotal: 'config/updateTotal',
+            setBottomSelected: 'config/setBottomSelected'
         }),
         ...mapActions({
             saveData: "config/saveData",
@@ -222,6 +225,9 @@ export default {
                 // * Equiparar
                 this.current_bottom.value = this.table_detail.items.length;
 
+                // Recalcular el total
+                this.updateTotal(this.current_bottom.value)
+
             }
 
         },
@@ -239,10 +245,18 @@ export default {
                 // * Equiparar
                 this.current_bottom.value = this.table_detail.items.length;
 
+                // Recalcular el total
+                this.updateTotal(this.current_bottom.value)
+
             }
 
 
         },
+        updateBottomSelected(){
+
+            this.setBottomSelected(this.current_bottom)
+
+        }
     },
     computed: {
         ...mapState({
@@ -284,24 +298,37 @@ export default {
             return [];
         },
         current_bottom() {
+
             if (this.indicador) {
+
                 // Obtener la tabla en base a la opción seleccionada
+
                 let result = this.indicador.bottom_detail.filter(
+
                     (item) => item.text == this.bottom_selected
+
                 );
 
                 if (result.length > 0) {
+
                     return result[0];
+
                 }
             }
 
             return [];
+
         },
         first_header() {
+
             if (this.table_detail) {
+
                 if (this.table_detail.headers) {
+
                     return this.table_detail.headers[0].value;
+
                 }
+
             }
 
             return null;
