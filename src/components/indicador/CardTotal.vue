@@ -1,6 +1,6 @@
 <template>
     <span>
-        {{ data.value }}
+        {{ data.value }}%
     </span>
 </template>
 

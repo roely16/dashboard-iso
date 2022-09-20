@@ -50,7 +50,7 @@
 import CustomModal from "@/components/dialog/CustomModal";
 import EditField from "@/components/dialog/EditField";
 
-import { mapMutations, mapGetters, mapState } from 'vuex'
+import { mapMutations, mapState } from 'vuex'
 
 export default {
     props: {
@@ -98,15 +98,34 @@ export default {
         updateValue(val){
 
             this.bottom_selected.value = parseInt(val)
+
+            // Actualizar el total
+
+            // * Obtener de bottom_detail los identificados como up y down
+
+            let up = this.indicador_get.bottom_detail.find(item => item.divide == 'up')
+            
+            let down = this.indicador_get.bottom_detail.find(item => item.divide == 'down')
+
+            const result = up.value / down.value
+            
+            if (down.value <= 0 || !down.value || up.value <= 0 || !up.value) {
+                
+                this.indicador_get.content.total.value = 0
+
+                return 
+            }
+
+            let total = result * 100
+
+            this.indicador_get.content.total.value = total > 100 ? 100 : Number.isInteger(total) ? total : total.toFixed(1)
             
         }
     },
     computed: {
         ...mapState({
-            bottom_selected: state => state.config.bottom_selected
-        }),
-        ...mapGetters({
-            indicador_get: 'config/indicador'
+            bottom_selected: state => state.config.bottom_selected,
+            indicador_get: state => state.config.indicador
         })
     }
 };

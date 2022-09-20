@@ -10,9 +10,6 @@
                             </slot>
                         </v-col>
                         <v-col
-                            @click="
-                                data.editable ? showEdit(content.total) : false
-                            "
                             cols="12"
                             lg="9"
                             class="text-center"
@@ -87,17 +84,11 @@ export default {
                 this.clientWidth = await this.$refs.card_content.clientWidth;
             }
         },
-        showEdit(value) {
-            console.log(value);
-
-            this.$refs.dialog.activeDialog(true);
-        },
     },
     computed: {
         total_styles() {
             return {
                 "font-size": this.clientWidth * 0.2 + "px",
-                cursor: "pointer",
             };
         },
     },

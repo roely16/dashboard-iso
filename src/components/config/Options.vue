@@ -9,7 +9,6 @@
                         </v-icon>
                         {{ tab.text }}
                     </v-tab>
-                    <v-tab-item> </v-tab-item>
                 </v-tabs>
             </v-col>
         </v-row>

@@ -1,8 +1,8 @@
 <template>
     <v-container>
-        <v-row justify="center">
-            <v-col cols="6">
-                <v-text-field v-model="currentValue" :label="placeholder"></v-text-field>
+        <v-row class="mt-4" justify="center">
+            <v-col cols="4">
+                <v-text-field filled rounded type="number" v-model="currentValue" :label="placeholder"></v-text-field>
             </v-col>
         </v-row>
     </v-container>
