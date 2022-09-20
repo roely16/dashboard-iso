@@ -216,7 +216,13 @@ export default {
             // Se agrega un nuevo objeto al array de items
             this.table_detail.items.unshift({});
 
-            // Realizar la petición al backend para reprocesar los datos nuevos
+            // * Si el total de registros en el detalle es mayor que lo mostrado en el indicador, sumar 
+            if (this.table_detail.items.length > this.current_bottom.value) {
+                
+                // * Equiparar
+                this.current_bottom.value = this.table_detail.items.length;
+
+            }
 
         },
         removeRow() {
@@ -224,6 +230,17 @@ export default {
             const result = this.table_detail.items.filter(({ expediente: id1 }) => !this.rows_selected.some(({ expediente: id2 }) => id2 === id1));
 
             this.table_detail.items = result
+
+            this.rows_selected = []
+
+            // * Si el detalle del elemento da como resultado una cantidad menor al total mostrado se deberá de restar
+            if (this.table_detail.items.length < this.current_bottom.value) {
+                
+                // * Equiparar
+                this.current_bottom.value = this.table_detail.items.length;
+
+            }
+
 
         },
     },
