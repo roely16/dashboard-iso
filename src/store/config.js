@@ -52,13 +52,25 @@ const mutations = {
 
         // * Obtener de bottom_detail los identificados como up y down
 
-        let up = state.indicador.bottom_detail.find(item => item.divide == 'up')
-        
-        let down = state.indicador.bottom_detail.find(item => item.divide == 'down')
+        const up = state.indicador.bottom_detail.filter(item => item.divide == 'up')
 
-        const result = up.value / down.value
-        
-        if (down.value <= 0 || !down.value || up.value <= 0 || !up.value) {
+        let total_up = 0
+
+        up.forEach(element => {
+            total_up += parseInt(element.value)
+        });
+
+        const down = state.indicador.bottom_detail.filter(item => item.divide == 'down')
+
+        let total_down = 0
+
+        down.forEach(element => {
+            total_down += parseInt(element.value)
+        });
+
+        const result = total_up / total_down
+
+        if (total_down <= 0 || !total_down || total_up <= 0 || !total_up) {
             
             state.indicador.content.total.value = 0
 
@@ -68,8 +80,6 @@ const mutations = {
         let total = result * 100
 
         state.indicador.content.total.value = total > 100 ? 100 : Number.isInteger(total) ? total : total.toFixed(1)
-
-        // * Actualizar el gráfico 
 
     }
 }
