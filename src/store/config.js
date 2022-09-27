@@ -81,6 +81,13 @@ const mutations = {
 
         state.indicador.content.total.value = total > 100 ? 100 : Number.isInteger(total) ? total : total.toFixed(1)
 
+    },
+    goBack: (state) => {
+        state.process_preview = null
+        state.indicador = null
+        state.bottom_detail = null
+        state.kpi_selected = null
+        state.select_process = null
     }
 }
 
@@ -143,9 +150,12 @@ const actions = {
 
         try {
             
-            if (payload) {
+            if (payload && !payload.freezing) {
+
                 payload.loading = true
+
             }
+
             commit('setLoading', true)
 
             const data = {
@@ -213,9 +223,28 @@ const actions = {
     }
 }
 
+const getters = {
+
+    isFreezing(state){
+
+        let process_freezing = state.process.filter(process => process.freezing)
+
+        if (process_freezing.length > 0) {
+            
+            return true
+
+        }
+
+        return false
+
+    }
+
+}
+
 export default {
     namespaced,
     state,
     mutations,
-    actions
+    actions,
+    getters
 }

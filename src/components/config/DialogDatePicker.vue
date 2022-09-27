@@ -23,7 +23,7 @@
 
 <script>
 
-import { mapMutations, mapActions } from 'vuex'
+import { mapMutations, mapActions, mapState } from 'vuex'
 
 export default {
     data(){
@@ -44,10 +44,18 @@ export default {
             // * Obtener de nuevo los datos
             this.$refs.dialog.save(date)
 
-            this.fetchDataProcess()
+            if (this.process_preview) {
+                
+                this.fetchDataProcess()
+                
+            }
+            
         }
     },
     computed: {
+        ...mapState({
+            process_preview: 'config/process_preview'
+        }),
         date: {
             get(){
                 return this.$store.state.config.date

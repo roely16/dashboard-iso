@@ -48,7 +48,7 @@
         <v-divider class="mt-4 mb-4"></v-divider>
 
         <!-- Vista Previa del Proceso Seleccionado -->
-        <preview-data v-if="process_preview"></preview-data>
+        <preview-data v-if="process_preview && !isFreezing"></preview-data>
 
         <v-row v-else>
             <v-col v-for="(process, key) in process" :key="key" cols="3">
@@ -65,7 +65,7 @@
                     </v-card-text>
                     <v-divider class="mx-4"></v-divider>
                     <v-card-actions>
-                        <v-btn color="primary" text>CONGELAR </v-btn>
+                        <v-btn :loading="process.freezing" :disabled="process.freezing" @click="massiveFreeze(process)" color="primary" text>CONGELAR </v-btn>
                         <v-spacer></v-spacer>
                         <v-btn :loading="process.loading" :disabled="process.loading" @click="fetchDataProcess(process)" icon>
                             <v-icon>
@@ -84,7 +84,7 @@
 import DialogDatePicker from "./DialogDatePicker.vue";
 import PreviewData from './PreviewData'
 
-import { mapState, mapActions } from "vuex";
+import { mapState, mapActions, mapGetters, mapMutations } from "vuex";
 
 export default {
     name: "ListProcess",
@@ -102,7 +102,11 @@ export default {
         ...mapActions({
             fetchProcess: "config/fetchProcess",
             doLogout: "config/doLogout",
-            fetchDataProcess: 'config/fetchDataProcess'
+            fetchDataProcess: 'config/fetchDataProcess',
+            saveData: 'config/saveData'
+        }),
+        ...mapMutations({
+            setProcessPreview: 'config/setProcessPreview'
         }),
         setTime() {
             this.interval = setInterval(() => {
@@ -114,6 +118,27 @@ export default {
                 }).format();
             }, 1000);
         },
+        massiveFreeze(process){
+
+            this.$set(process, 'freezing', true)
+
+            this.fetchDataProcess(process)
+            .then(() => {
+
+                this.process_preview.detail.indicadores.forEach(indicador => {
+                
+                    this.saveData(indicador)
+
+                });
+
+                 // * Clear process_preview
+                this.setProcessPreview(null)
+
+                process.freezing = false
+
+            })
+
+        }
     },
     computed: {
         ...mapState({
@@ -124,6 +149,9 @@ export default {
         userData() {
             return JSON.parse(localStorage.getItem("dashboard-iso"));
         },
+        ...mapGetters({
+            isFreezing: 'config/isFreezing'
+        })
     },
     created(){
         this.setTime()

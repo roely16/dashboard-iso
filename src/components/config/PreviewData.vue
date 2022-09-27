@@ -32,7 +32,7 @@
                     <v-icon> mdi-refresh </v-icon>
                 </v-btn>
                 <v-btn
-                    @click="setProcessPreview(null)"
+                    @click="goBack()"
                     elevation="0"
                     color="primary"
                     >Regresar
@@ -202,7 +202,8 @@ export default {
             setKPISelected: 'config/setKPISelected',
             setIndicador: 'config/setIndicador',
             updateTotal: 'config/updateTotal',
-            setBottomSelected: 'config/setBottomSelected'
+            setBottomSelected: 'config/setBottomSelected',
+            goBack: 'config/goBack'
         }),
         ...mapActions({
             saveData: "config/saveData",
