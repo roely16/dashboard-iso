@@ -1,5 +1,7 @@
 import axios from "axios";
 
+import Swal from 'sweetalert2'
+
 const namespaced = true
 
 const state = {
@@ -88,6 +90,20 @@ const mutations = {
         state.bottom_detail = null
         state.kpi_selected = null
         state.select_process = null
+    },
+    showMessage: (state, payload) => {
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+        })
+
+        Toast.fire({
+            icon: payload.icon,
+            title: payload.title
+        })
     }
 }
 
@@ -213,6 +229,9 @@ const actions = {
             await axios.post(process.env.VUE_APP_API_URL + 'save_data', payload)
 
             commit('setLoading', false)
+
+            // * Mostrar toast
+            commit('showMessage', {icon: 'success', title: 'Datos registrados exitosamente!'})
 
         } catch (error) {
             
