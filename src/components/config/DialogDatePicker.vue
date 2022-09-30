@@ -46,6 +46,8 @@ export default {
 
             if (this.process_preview) {
                 
+                console.log('get info')
+
                 this.fetchDataProcess()
                 
             }
@@ -54,7 +56,7 @@ export default {
     },
     computed: {
         ...mapState({
-            process_preview: 'config/process_preview'
+            process_preview: state => state.config.process_preview
         }),
         date: {
             get(){

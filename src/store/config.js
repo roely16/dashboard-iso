@@ -166,6 +166,8 @@ const actions = {
 
         try {
             
+            commit('setKPISelected', null)
+
             if (payload && !payload.freezing) {
 
                 payload.loading = true

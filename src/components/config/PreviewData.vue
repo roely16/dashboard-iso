@@ -92,8 +92,8 @@
                     hide-details
                     filled
                     placeholder="Seleccione una opción"
-                    @change="updateBottomSelected()"
-                ></v-select>
+                    :disabled="loading"
+                    ></v-select>
             </v-col>
             <v-col align="end" cols="9">
                 <v-btn
@@ -263,7 +263,7 @@ export default {
         ...mapState({
             process: (state) => state.config.process_preview,
             loading: (state) => state.config.loading,
-            indicador: state => state.config.indicador
+            // indicador: state => state.config.indicador
         }),
         kpi_selected: {
             get(){
@@ -277,8 +277,11 @@ export default {
             let items = [];
 
             if (this.indicador) {
+
                 this.indicador.bottom_detail.forEach((bottom) => {
+
                     items.push(bottom.text);
+
                 });
             }
 
@@ -334,6 +337,23 @@ export default {
 
             return null;
         },
+        indicador(){
+
+            if (this.kpi_selected || this.loading) {
+                
+                const result = this.process.detail.indicadores.filter(
+
+                    (item) => item.id == this.kpi_selected
+        
+                );
+
+                return result[0]
+
+            }
+
+            return null
+            
+        }
     },
     watch: {
         kpi_selected(val){
