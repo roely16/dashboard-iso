@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import router from '../router/index'
+// import router from '../router/index'
 
 const namespaced = true;
 
@@ -67,7 +67,7 @@ const actions = {
     },
     async goHome({ dispatch, commit }) {
 
-        router.push({ name: 'home' })
+        // router.push({ name: 'home' })
 
         localStorage.removeItem("dashboard-iso-option-selected");
 

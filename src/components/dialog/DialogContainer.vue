@@ -49,15 +49,6 @@ export default {
         isArray() {
             return Array.isArray(this.data);
         },
-    },
-    watch: {
-        show: function(val){
-
-            if (!val) {
-                console.log('modal close')
-            }
-
-        }
     }
 };
 </script>

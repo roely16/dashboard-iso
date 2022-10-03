@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import router from '../router'
+// import router from '../router'
 
 const namespaced = true
 
@@ -122,7 +122,7 @@ const actions = {
     },
     async selectMenu({commit, dispatch}, payload){
 
-        router.push({ name: 'home' })
+        // router.push({ name: 'home' })
         
         commit('selectOption', payload)
 

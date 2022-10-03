@@ -15,7 +15,8 @@ const state = {
     select_process: null,
     kpi_selected: null,
     bottom_selected: null,
-    indicador: null
+    indicador: null,
+    loading_process: false
 }
 
 const mutations = {
@@ -34,6 +35,9 @@ const mutations = {
     setLoading: (state, payload) => {
         state.loading = payload
     },
+    setLoadingProcess: (state, payload) => {
+        state.loading_process = payload
+    },  
     setLogged: (state, payload) => {
         state.logged = payload
     },
@@ -148,12 +152,13 @@ const actions = {
 
         try {
             
+            commit('setLoadingProcess', true)
+
             // * Obtener el listado de procesos
             const response = await axios.post(process.env.VUE_APP_API_URL + 'get_process')
 
             commit('setProcess', response.data)
-
-            console.log(response.data)
+            commit('setLoadingProcess', false)
 
         } catch (error) {
             

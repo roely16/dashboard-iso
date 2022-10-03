@@ -1,5 +1,7 @@
 <template>
     <div>
+        
+
         <v-row>
             <v-col cols="3">
                 <v-card
@@ -51,6 +53,9 @@
         <preview-data v-if="process_preview && !isFreezing"></preview-data>
 
         <v-row v-else>
+            <v-overlay absolute color="#fff" :dark="false" :opacity="100" :value="loading_process">
+                <v-progress-circular indeterminate size="64"></v-progress-circular>
+            </v-overlay>
             <v-col v-for="(process, key) in process" :key="key" cols="3">
                 <v-card
                     flat
@@ -144,7 +149,8 @@ export default {
         ...mapState({
             process: (state) => state.config.process,
             date: (state) => state.config.date,
-            process_preview: state => state.config.process_preview
+            process_preview: state => state.config.process_preview,
+            loading_process: state => state.config.loading_process
         }),
         userData() {
             return JSON.parse(localStorage.getItem("dashboard-iso"));

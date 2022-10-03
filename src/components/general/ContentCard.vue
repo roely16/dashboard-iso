@@ -26,7 +26,7 @@
                 </slot>
             </v-card-text>
 
-            <custom-dialog title="Edición" ref="dialog">
+            <custom-dialog v-if="$route.name == 'config'" title="Edición" ref="dialog">
                 <template #content>
                     <edit-field
                         :value="content.total.value"
@@ -50,6 +50,8 @@ import EditField from "@/components/dialog/EditField";
 
 import CardChart from "@/components/indicador/CardChart.vue";
 import CardTotal from "@/components/indicador/CardTotal.vue";
+
+import { mapState } from "vuex";
 
 export default {
     components: {
@@ -91,11 +93,23 @@ export default {
                 "font-size": this.clientWidth * 0.2 + "px",
             };
         },
+        ...mapState({
+            loading: state => state.dashboard.loading
+        })
     },
     mounted() {
         this.handleResize().then(() => {
             window.addEventListener("resize", this.handleResize);
         });
     },
+    watch: {
+        loading(val){
+
+            if (!val) {
+                this.clientWidth = this.$refs.card_content.clientWidth;
+            }
+
+        }
+    }
 };
 </script>

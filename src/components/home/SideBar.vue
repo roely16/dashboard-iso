@@ -28,6 +28,7 @@
                             v-for="(item, key) in section.procesos"
                             :key="key"
                             @click="selectMenu(item)"
+                            :to="{name: 'home'}"
                         >
                             <v-card-subtitle class="pl-2 pr-2 pt-3 pb-3">
                                 <span v-bind:class="[{'white--text': item.selected}, 'font-weight-bold']">
