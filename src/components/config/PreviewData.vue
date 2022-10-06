@@ -276,7 +276,7 @@ export default {
         bottom_options() {
             let items = [];
 
-            if (this.indicador) {
+            if (this.indicador && !this.indicador.componente) {
 
                 this.indicador.bottom_detail.forEach((bottom) => {
 
@@ -288,7 +288,7 @@ export default {
             return items;
         },
         table_detail() {
-            if (this.indicador) {
+            if (this.indicador && !this.indicador.componente) {
                 // Obtener la tabla en base a la opción seleccionada
                 let result = this.indicador.bottom_detail.filter(
                     (item) => item.text == this.bottom_selected
@@ -303,7 +303,7 @@ export default {
         },
         current_bottom() {
 
-            if (this.indicador) {
+            if (this.indicador && !this.indicador.componente) {
 
                 // Obtener la tabla en base a la opción seleccionada
 

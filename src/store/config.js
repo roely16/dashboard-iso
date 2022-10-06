@@ -128,6 +128,7 @@ const actions = {
 
         } catch (error) {
             
+            commit('setLogging', false)
             console.log(error.response)
 
         }

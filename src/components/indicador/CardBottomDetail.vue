@@ -20,6 +20,8 @@
                 <v-divider v-if="key < (items.length - 1)" vertical></v-divider>
             </v-row>
         </v-col>
+
+        <!-- Cuadro de dialogo para edición de valores -->
         <custom-dialog title="Edición" ref="dialog">
             <template #content>
                 <edit-field
@@ -30,6 +32,7 @@
                 ></edit-field>
             </template>
         </custom-dialog>
+
     </v-row>
 </template>
 
