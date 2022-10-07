@@ -16,7 +16,44 @@
                 <h2>
                     {{ process.nombre }}
                 </h2>
-                <small> Última Actualización: 2022-08-22 15:32:33 </small>
+
+                <!-- 
+                    TODO: Mostrar fecha de actualización al seleccionar un indicador
+                -->
+                <small v-if="indicador">
+                    Última Actualización: {{ indicador.last_update }}
+                    <v-menu offset-y>
+                        <template v-slot:activator="{ on, attrs }">
+                            <v-btn
+                                v-bind="attrs"
+                                v-on="on"
+                                icon
+                                small
+                            >
+                                <v-icon>
+                                    mdi-chevron-down
+                                </v-icon>
+                            </v-btn>
+                        </template>
+                        <v-list>
+                            <v-list-item
+                                v-for="(item, index) in indicador.list_freeze"
+                                :key="index"
+                                @click="showFreezeDate(item)"
+                            >
+                                <v-list-item-content>
+                                    <v-list-item-title>{{
+                                        item.last_update
+                                    }}</v-list-item-title>
+                                    <v-list-item-subtitle>
+                                        {{ item.registrado_por }}
+                                    </v-list-item-subtitle>
+                                </v-list-item-content>
+                                
+                            </v-list-item>
+                        </v-list>
+                    </v-menu>
+                </small>
             </v-col>
             <v-col cols="4" align="end">
                 <v-progress-circular
@@ -31,10 +68,7 @@
                 <v-btn @click="fetchDataProcess()" class="mr-2" elevation="0">
                     <v-icon> mdi-refresh </v-icon>
                 </v-btn>
-                <v-btn
-                    @click="goBack()"
-                    elevation="0"
-                    color="primary"
+                <v-btn @click="goBack()" elevation="0" color="primary"
                     >Regresar
                     <v-icon right> mdi-arrow-u-left-top </v-icon>
                 </v-btn>
@@ -93,7 +127,7 @@
                     filled
                     placeholder="Seleccione una opción"
                     :disabled="loading"
-                    ></v-select>
+                ></v-select>
             </v-col>
             <v-col align="end" cols="9">
                 <v-btn
@@ -101,7 +135,6 @@
                     class="mr-2"
                     elevation="0"
                     :disabled="!bottom_selected"
-                    
                 >
                     Seleccionar
                     <v-icon right>
@@ -194,20 +227,27 @@ export default {
             bottom_selected: null,
             table_select: false,
             rows_selected: [],
+            options_menu: [
+                { title: "Click Me" },
+                { title: "Click Me" },
+                { title: "Click Me" },
+                { title: "Click Me 2" },
+            ],
+            selected: null
         };
     },
     methods: {
         ...mapMutations({
             setProcessPreview: "config/setProcessPreview",
-            setKPISelected: 'config/setKPISelected',
-            setIndicador: 'config/setIndicador',
-            updateTotal: 'config/updateTotal',
-            setBottomSelected: 'config/setBottomSelected',
-            goBack: 'config/goBack'
+            setKPISelected: "config/setKPISelected",
+            setIndicador: "config/setIndicador",
+            updateTotal: "config/updateTotal",
+            setBottomSelected: "config/setBottomSelected",
+            goBack: "config/goBack",
         }),
         ...mapActions({
             saveData: "config/saveData",
-            fetchDataProcess: 'config/fetchDataProcess'
+            fetchDataProcess: "config/fetchDataProcess",
         }),
         getSlotName(item) {
             return `item.` + item.value;
@@ -216,47 +256,44 @@ export default {
             console.log("update total");
         },
         addRow() {
-
             // Se agrega un nuevo objeto al array de items
             this.table_detail.items.unshift({});
 
-            // * Si el total de registros en el detalle es mayor que lo mostrado en el indicador, sumar 
+            // * Si el total de registros en el detalle es mayor que lo mostrado en el indicador, sumar
             if (this.table_detail.items.length > this.current_bottom.value) {
-                
                 // * Equiparar
                 this.current_bottom.value = this.table_detail.items.length;
 
                 // Recalcular el total
-                this.updateTotal(this.current_bottom.value)
-
+                this.updateTotal(this.current_bottom.value);
             }
-
         },
         removeRow() {
+            const result = this.table_detail.items.filter(
+                ({ expediente: id1 }) =>
+                    !this.rows_selected.some(
+                        ({ expediente: id2 }) => id2 === id1
+                    )
+            );
 
-            const result = this.table_detail.items.filter(({ expediente: id1 }) => !this.rows_selected.some(({ expediente: id2 }) => id2 === id1));
+            this.table_detail.items = result;
 
-            this.table_detail.items = result
-
-            this.rows_selected = []
+            this.rows_selected = [];
 
             // * Si el detalle del elemento da como resultado una cantidad menor al total mostrado se deberá de restar
             if (this.table_detail.items.length < this.current_bottom.value) {
-                
                 // * Equiparar
                 this.current_bottom.value = this.table_detail.items.length;
 
                 // Recalcular el total
-                this.updateTotal(this.current_bottom.value)
-
+                this.updateTotal(this.current_bottom.value);
             }
-
-
         },
-        updateBottomSelected(){
-
-            this.setBottomSelected(this.current_bottom)
-
+        updateBottomSelected() {
+            this.setBottomSelected(this.current_bottom);
+        },
+        showFreezeDate(item){
+            console.log(item)
         }
     },
     computed: {
@@ -266,22 +303,19 @@ export default {
             // indicador: state => state.config.indicador
         }),
         kpi_selected: {
-            get(){
-                return this.$store.state.config.kpi_selected
+            get() {
+                return this.$store.state.config.kpi_selected;
             },
-            set(val){
-                this.setKPISelected(val)
-            }
+            set(val) {
+                this.setKPISelected(val);
+            },
         },
         bottom_options() {
             let items = [];
 
             if (this.indicador && !this.indicador.componente) {
-
                 this.indicador.bottom_detail.forEach((bottom) => {
-
                     items.push(bottom.text);
-
                 });
             }
 
@@ -302,81 +336,55 @@ export default {
             return [];
         },
         current_bottom() {
-
             if (this.indicador && !this.indicador.componente) {
-
                 // Obtener la tabla en base a la opción seleccionada
 
                 let result = this.indicador.bottom_detail.filter(
-
                     (item) => item.text == this.bottom_selected
-
                 );
 
                 if (result.length > 0) {
-
                     return result[0];
-
                 }
             }
 
             return [];
-
         },
         first_header() {
-
             if (this.table_detail) {
-
                 if (this.table_detail.headers) {
-
                     return this.table_detail.headers[0].value;
-
                 }
-
             }
 
             return null;
         },
-        indicador(){
-
+        indicador() {
             if (this.kpi_selected || this.loading) {
-                
                 const result = this.process.detail.indicadores.filter(
-
                     (item) => item.id == this.kpi_selected
-        
                 );
 
-                return result[0]
-
+                return result[0];
             }
 
-            return null
-            
-        }
+            return null;
+        },
     },
     watch: {
-        kpi_selected(val){
-
+        kpi_selected(val) {
             if (val) {
-                
                 const result = this.process.detail.indicadores.filter(
-
                     (item) => item.id == val
-        
                 );
-        
+
                 if (result) {
-                    
-                    const response = result[0]
+                    const response = result[0];
 
-                    this.setIndicador(response)
-                    
+                    this.setIndicador(response);
                 }
-
             }
-
-        }
-    }
+        },
+    },
 };
 </script>
