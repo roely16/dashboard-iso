@@ -1,10 +1,13 @@
 <template>
-    <span>
+    <span style="cursor: pointer" @click="content.data.tooltip ? showDetail() : null">
         {{ total_modified }}%
     </span>
 </template>
 
 <script>
+
+import { mapMutations } from 'vuex';
+
 export default {
     props: {
         data: {
@@ -18,6 +21,19 @@ export default {
             default: function(){
                 return {}
             }
+        }
+    },
+    methods: {
+        ...mapMutations({
+            setData: 'dialog/setData',
+            setShow: 'dialog/setShow'
+        }),
+        showDetail(){
+
+            this.setData(this.content.data)
+
+            this.setShow(true)
+
         }
     },
     computed:{
