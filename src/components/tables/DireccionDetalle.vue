@@ -32,6 +32,17 @@
                         {{ dialog_data.text }}
                     </v-card-subtitle>
                 </v-card>
+
+                <v-card class="mt-4" outlined>
+                    <v-card-subtitle>
+                        Cálculo
+                    </v-card-subtitle>
+                    <v-card-text>
+                        <h2>
+                            {{ parseFloat(result.enumerator).toFixed(2) }} / {{ dialog_data.tooltip.length }} = {{ result.total }}
+                        </h2>
+                    </v-card-text>
+                </v-card>
             </v-col>
         </v-row>
     </v-card-text>
@@ -45,6 +56,22 @@ export default {
         ...mapState({
             dialog_data: (state) => state.dialog.data,
         }),
+        result: function(){
+            
+            let total = 0
+
+            this.dialog_data.tooltip.forEach(element => {
+                total += parseFloat(element.value)
+            });
+
+            const result = {
+                enumerator: total,
+                total: parseFloat(total / this.dialog_data.tooltip.length).toFixed(1)
+            }
+
+            return result
+
+        }
     },
 };
 </script>

@@ -39,7 +39,7 @@
                 </v-row>
             </v-tab-item>
             <v-tab-item>
-                <v-expansion-panels flat>
+                <v-expansion-panels v-if="data_component.length > 0" flat>
                     <v-expansion-panel
                         v-for="(item, key) in data_component"
                         :key="key"
