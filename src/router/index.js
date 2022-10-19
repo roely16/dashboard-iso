@@ -1,7 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue"
-import Config from '../components/config/ConfigView.vue'
+import Config from '../components/config/ConfigModule.vue'
 
 Vue.use(VueRouter);
 

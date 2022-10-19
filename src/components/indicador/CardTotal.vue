@@ -30,6 +30,8 @@ export default {
         }),
         showDetail(){
 
+            console.log(this.content.data)
+
             this.setData(this.content.data)
 
             this.setShow(true)

@@ -1,9 +1,7 @@
 <template>
     <div>
-        
-
         <v-row>
-            <v-col cols="3">
+            <v-col cols="4">
                 <v-card
                     elevation="0"
                     color="#8AB8A1"

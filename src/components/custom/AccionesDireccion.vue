@@ -5,19 +5,9 @@
         >
             <template #total>
                 <v-row>
-                    <!-- <v-col cols="6">
-                        <h5 style="font-size: 20px">
-                            {{ data_component.data.avance.text }}
-                        </h5>
-                        <span style="font-size: 40px">
-                            {{ data_component.data.avance.value }}%
-                        </span>
-                    </v-col>
-                    <v-divider vertical></v-divider> -->
+                   
                     <v-col class="cursor" @click="setDetail(data_component.data.eficacia)" cols="12">
-                        <!-- <h5 style="font-size: 20px">
-                            {{ data_component.data.eficacia.text }}
-                        </h5> -->
+                        
                         <span :style="total_styles">
                             {{ data_component.data.eficacia.value }}%
                         </span>
@@ -26,7 +16,7 @@
             </template>
         </content-card>
         <v-card-actions>
-            <bottom_detail :items="data_component.data.bottom_detail"></bottom_detail>
+            <bottom_detail :indicador="data_component" :items="data_component.data.bottom_detail"></bottom_detail>
         </v-card-actions>
     </div>
 </template>

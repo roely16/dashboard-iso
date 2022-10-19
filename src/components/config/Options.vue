@@ -41,7 +41,7 @@ export default {
                     component: "ConfigModule",
                 },
             ],
-            selected: 0,
+            selected: 1,
         };
     },
     computed: {

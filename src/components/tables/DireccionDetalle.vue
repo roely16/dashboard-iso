@@ -11,6 +11,9 @@
                             <v-list-item-title>
                                 {{ element.title }}
                             </v-list-item-title>
+                            <v-list-item-subtitle>
+                                {{ element.name }}
+                            </v-list-item-subtitle>
                         </v-list-item-content>
                         <v-list-item-action>
                             <v-chip label>

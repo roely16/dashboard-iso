@@ -8,6 +8,7 @@ import dashboard from './dashboard'
 import dialog from './dialog'
 import alert from './alert'
 import config from './config'
+import config_view from './config_view'
 
 export default new Vuex.Store({
     state: {},
@@ -19,6 +20,7 @@ export default new Vuex.Store({
         dashboard: dashboard,
         dialog: dialog,
         alert: alert,
-        config: config
+        config: config,
+        config_view: config_view
     },
 });
