@@ -11,7 +11,7 @@
                 <v-icon> mdi-calendar</v-icon>
             </v-btn>
         </template>
-        <v-date-picker color="#8AB8A1" v-model="date" type="month" scrollable>
+        <v-date-picker min="2020-01-01" color="#8AB8A1" v-model="date" type="month" scrollable>
             <v-spacer></v-spacer>
             <v-btn text @click="modal = false"> Cancelar </v-btn>
             <v-btn text color="#8AB8A1" @click="saveDate(date)">
