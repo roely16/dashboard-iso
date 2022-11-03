@@ -4,7 +4,7 @@
             v-for="(item, key) in items"
             :key="key"
             class="text-center click mt-2 mb-2"
-            @click="!indicador.editable ? setDetail(item) : showEdit(item)"
+            @click="!indicador.editable ? setDetail(item, items) : showEdit(item)"
         >
             <v-row>
                 <v-col cols="12 pb-0 pt-0 title-bottom">
@@ -80,11 +80,11 @@ export default {
             setData: "dialog/setData",
             setBottomSelected: "config/setBottomSelected",
             updateTotal: "config/updateTotal",
+            setBottomDetail: 'dialog/setBottomDetail'
         }),
-        setDetail(detail) {
+        setDetail(detail, bottom_detail) {
 
-            console.log(detail)
-
+            this.setBottomDetail(bottom_detail)
             this.setData(detail);
 
             this.setShow(true);

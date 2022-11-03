@@ -8,7 +8,8 @@ const state = {
     search: null,
     showSearch: false,
     width: null,
-    showBtnSearch: true
+    showBtnSearch: true, 
+    bottom_detail: []
 }
 
 const mutations = {
@@ -60,6 +61,9 @@ const mutations = {
         state.showSearch = false,
         state.width = null,
         state.showBtnSearch = true
+    },
+    setBottomDetail: (state, payload) => {
+        state.bottom_detail = payload
     }
 }
 
