@@ -5,7 +5,7 @@
                 <v-card min-height="140" elevation="0">
                     <v-card-text class="pb-0">
                         <h3 class="font-weight-light mb-5">Cumplimiento</h3>
-                        <span class="text-h3">
+                        <span class="text-h4">
                             {{ data_component.data.cumplimiento }}%
                         </span>
                         <v-row class="mt-1" justify="center">
@@ -39,7 +39,7 @@
                         <v-card elevation="0" min-height="100">
                             <v-card-text class="pt-0 pb-0">
                                 <h4 class="font-weight-light">Mensual</h4>
-                                <span class="text-h3">
+                                <span class="text-h4">
                                     {{ data_component.data.mensual }}%
                                 </span>
                                 <v-row class="mt-1" justify="center">
@@ -72,7 +72,7 @@
                                 <h4 class="font-weight-light">
                                     Trimestral
                                 </h4>
-                                <span class="text-h3">
+                                <span class="text-h4">
                                     {{ data_component.data.trimestral }}%
                                 </span>
                                 <v-row class="mt-1" justify="center">
