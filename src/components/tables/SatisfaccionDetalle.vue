@@ -83,10 +83,10 @@ export default {
             let value = 0
 
             this.data.resumen.table.items.forEach(item => {
-                value += item.promedio
+                value += item.satisfaccion
             });
 
-            return value
+            return value.toFixed(2)
         },
         percentage: function(){
 
