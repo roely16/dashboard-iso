@@ -10,7 +10,7 @@
     >
         <v-card style="border-radius: 15px" class="elevation-0">
             <dialog-title></dialog-title>
-            <custom-component :data_component="data_component.detail" :name="data_component.component" v-if="data_component.component"></custom-component>
+            <custom-component :data="data_component" :data_component="data_component.detail" :name="data_component.component" v-if="data_component.component"></custom-component>
         </v-card>
          
     </v-dialog>

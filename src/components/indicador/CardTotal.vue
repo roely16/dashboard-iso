@@ -1,6 +1,6 @@
 <template>
     <span style="cursor: pointer" @click="content.data.tooltip ? showDetail() : null">
-        {{ total_modified }}%
+        {{ data.value }}%
     </span>
 </template>
 
@@ -41,7 +41,7 @@ export default {
     computed:{
         styles(){
             return{
-                'font-size': '10vw'
+                'font-size': '9vw'
             }
         },
         total_modified(){

@@ -90,7 +90,7 @@ export default {
     computed: {
         total_styles() {
             return {
-                "font-size": this.clientWidth * 0.2 + "px",
+                "font-size": this.clientWidth * 0.178 + "px",
             };
         },
         ...mapState({

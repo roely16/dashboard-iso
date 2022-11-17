@@ -1,5 +1,5 @@
 <template>
-    <component :data_component="data_component" v-bind:is="customComponent"></component>
+    <component :data="data" :data_component="data_component" v-bind:is="customComponent"></component>
 </template>
 
 <script>
@@ -7,6 +7,12 @@ export default {
     props: {
         name: String,
         data_component: {
+            type: [Object, Array],
+            default: function(){
+                return {}
+            }
+        },
+        data: {
             type: [Object, Array],
             default: function(){
                 return {}
