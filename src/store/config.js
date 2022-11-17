@@ -85,7 +85,7 @@ const mutations = {
 
         let total = result * 100
 
-        state.indicador.content.total.value = total > 100 ? 100 : Number.isInteger(total) ? total : total.toFixed(1)
+        state.indicador.content.total.value = total > 100 ? 100 : Number.isInteger(total) ? total : total.toFixed(2)
 
     },
     goBack: (state) => {
